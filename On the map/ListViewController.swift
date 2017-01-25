@@ -14,14 +14,16 @@ class ListViewController : UITableViewController {
     // MARK: Properties
     
     let sharedStudentsData = SharedDataSource.sharedInstance()
-
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Initialization
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TODO: Start ActivityIndicator (UI)
+        // Starting ActivityIndicator (UI)
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
         
         // Setting the delegate and the dataSource of the tableView
         tableView.delegate = self
@@ -44,7 +46,7 @@ class ListViewController : UITableViewController {
         UdacityClient.sharedInstance().logout(){ (success, errorString) in
             
             performUIUpdatesOnMain {
-                // If........ TODO: comment !!!!!!!!!!!!!!!!!
+                // If the logout is successful, the user will be presented with the login screen again.
                 if success {
                     self.completeLogout()
                 }
@@ -76,12 +78,14 @@ class ListViewController : UITableViewController {
     // MARK: Responses for the refresh map event
     
     func studentLocationsDidUpdateSuccess() {
-        // TODO: Stop ActivityIndicator (UI)
+        // Stopping ActivityIndicator
+        activityIndicator.stopAnimating()
         tableView.reloadData()
     }
     
     func studentLocationsDidUpdateFailed() {
-        // TODO: Stop ActivityIndicator (UI)
+        // Stopping ActivityIndicator
+        activityIndicator.stopAnimating()
         displayErrorAlertViewWithMessage("There was an error when updating the student locations")
     }
     

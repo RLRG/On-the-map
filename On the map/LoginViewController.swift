@@ -15,10 +15,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextView: UITextField!
     @IBOutlet weak var passwordTextView: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    // TODO: Clicking on the Sign Up link will open Safari to the Udacity sign-up page: https://www.udacity.com/account/auth#!/signup
-    // TODO: Display a spinner when the Login is making the network request.
-    // TODO: Password textview with ****** not showing the letters.
     // TODO: Fix the behaviour when the user is not valid and display the alert. This functionality is not working.
 
     // MARK: Actions
@@ -26,9 +24,13 @@ class LoginViewController: UIViewController {
     @IBAction func doLogin(_ sender: Any) {
         
         // When the user taps the Login button, the app will attempt to authenticate with Udacity’s servers.
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
         
         // TODO: Check textField values !!
         UdacityClient.sharedInstance().authenticateUser(emailTextView.text!, password: passwordTextView.text!) { (success, errorString) in
+            
+            self.activityIndicator.stopAnimating()
             
             performUIUpdatesOnMain {
                 // If the connection is made and the email and password are good, the app will segue to the Map and Table Tabbed View.
@@ -43,6 +45,14 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBAction func signUp(_ sender: Any) {
+        // Clicking on the Sign Up link will open Safari to the Udacity sign-up page: https://www.udacity.com/account/auth#!/signup
+        if UIApplication.shared.canOpenURL(URL(string: "https://www.udacity.com/account/auth#!/signup")!) {
+            UIApplication.shared.open(URL(string: "https://www.udacity.com/account/auth#!/signup")!, options: [:], completionHandler: nil)
+        } else {
+            displayErrorAlertViewWithMessage("There was an error when opening the URL.")
+        }
+    }
     
     // MARK: Configure UI actions
     

@@ -15,12 +15,14 @@ class MapViewController : UIViewController {
     // MARK: Properties
     
     let sharedStudentsData = SharedDataSource.sharedInstance()
-    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TODO: Start ActivityIndicator (UI)
+        // Starting ActivityIndicator (UI)
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
         
         // Adding the observer for the event of refreshing the data
         NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateSuccess), name: NSNotification.Name(rawValue: "refreshStudentLocationsSuccessful"), object: nil)
@@ -38,12 +40,14 @@ class MapViewController : UIViewController {
 
     // MARK: Actions
     
+    // TODO: Eliminar redundancia en el código de los dos viewControllers (map & list).
+    
     @IBAction func doLogout(_ sender: Any) {
         
         UdacityClient.sharedInstance().logout(){ (success, errorString) in
             
             performUIUpdatesOnMain {
-                // If........  TODO: comment !!!!!!!!!!!!!!!!!
+                // If the logout is successful, the user will be presented with the login screen again.
                 if success {
                     self.completeLogout()
                 }
@@ -75,12 +79,14 @@ class MapViewController : UIViewController {
     // MARK: Responses for the refresh map event
     
     func studentLocationsDidUpdateSuccess() {
-        // TODO: Stop ActivityIndicator (UI)
+        // Stopping ActivityIndicator
+        activityIndicator.stopAnimating()
         // TODO: Update Map Content.
     }
     
     func studentLocationsDidUpdateFailed() {
-        // TODO: Stop ActivityIndicator (UI)
+        // Stopping ActivityIndicator
+        activityIndicator.stopAnimating()
         displayErrorAlertViewWithMessage("There was an error when updating the student locations")
     }
     
