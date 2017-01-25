@@ -32,6 +32,12 @@ extension UdacityClient {
         static let session = "session"
         static let id = "id"
         static let expiration = "expiration"
+        static let userKey = "key"
+        static let status = "status"
+        static let error = "error"
+        static let user = "user"
+        static let name = "first_name"
+        static let surname = "last_name"
     }
 
 }

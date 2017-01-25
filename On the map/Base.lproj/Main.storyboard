@@ -14,7 +14,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="On_the_map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="LoginViewController" storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="On_the_map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -145,10 +145,22 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="On the map" id="wcC-Fb-3Ky">
-                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Hse-wp-T1g"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Hse-wp-T1g">
+                                            <connections>
+                                                <action selector="doLogout:" destination="MQG-WX-yPb" id="qwF-2k-UrD"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <rightBarButtonItems>
-                                            <barButtonItem systemItem="refresh" id="rPN-hL-soD"/>
-                                            <barButtonItem image="pin" id="HHp-wd-RIr"/>
+                                            <barButtonItem systemItem="refresh" id="rPN-hL-soD">
+                                                <connections>
+                                                    <action selector="refreshMap:" destination="MQG-WX-yPb" id="koH-03-bue"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem image="pin" id="HHp-wd-RIr">
+                                                <connections>
+                                                    <action selector="postLocation:" destination="MQG-WX-yPb" id="dz1-Lj-bP7"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
@@ -175,7 +187,7 @@
         <!--Map-->
         <scene sceneID="ZIq-xC-bK5">
             <objects>
-                <viewController id="E2d-I3-e4f" sceneMemberID="viewController">
+                <viewController id="E2d-I3-e4f" customClass="MapViewController" customModule="On_the_map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y0k-7c-URh"/>
                         <viewControllerLayoutGuide type="bottom" id="jWS-D2-QVg"/>
@@ -191,10 +203,22 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="On the map" id="hGb-Co-Na0">
-                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="8kh-QW-qOu"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="8kh-QW-qOu">
+                                            <connections>
+                                                <action selector="doLogout:" destination="E2d-I3-e4f" id="4Qi-jf-2VR"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <rightBarButtonItems>
-                                            <barButtonItem systemItem="refresh" id="vce-wP-iJy"/>
-                                            <barButtonItem image="pin" id="fnP-y2-bRK"/>
+                                            <barButtonItem systemItem="refresh" id="vce-wP-iJy">
+                                                <connections>
+                                                    <action selector="refreshMap:" destination="E2d-I3-e4f" id="nmM-Ir-tHb"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem image="pin" id="fnP-y2-bRK">
+                                                <connections>
+                                                    <action selector="postLocation:" destination="E2d-I3-e4f" id="2W3-yf-OQR"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
@@ -221,7 +245,7 @@
         <!--Posting View Controller-->
         <scene sceneID="8nx-kv-SFm">
             <objects>
-                <viewController id="H0j-9c-rdz" customClass="PostingViewController" customModule="On_the_map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="PostingViewController" storyboardIdentifier="PostingViewController" id="H0j-9c-rdz" customClass="PostingViewController" customModule="On_the_map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xpv-i4-FKD"/>
                         <viewControllerLayoutGuide type="bottom" id="a7Z-Ah-Cyl"/>
@@ -272,7 +296,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M6k-4h-kMi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2552.8000000000002" y="-206.44677661169416"/>
+            <point key="canvasLocation" x="2548" y="-206"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ucZ-G1-1Xu">

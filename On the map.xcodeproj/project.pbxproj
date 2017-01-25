@@ -12,6 +12,7 @@
 		CB81AA301E38961500C45BC5 /* PostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81AA2F1E38961500C45BC5 /* PostingViewController.swift */; };
 		CB81AA331E38A1E300C45BC5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81AA321E38A1E300C45BC5 /* Utils.swift */; };
 		CB81AA361E38AEDC00C45BC5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB81AA351E38AEDC00C45BC5 /* MapKit.framework */; };
+		CB81AA3F1E38D33D00C45BC5 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81AA3E1E38D33D00C45BC5 /* StudentLocation.swift */; };
 		CB9C8D491E37C1D500C25B89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9C8D481E37C1D500C25B89 /* AppDelegate.swift */; };
 		CB9C8D4B1E37C1D500C25B89 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9C8D4A1E37C1D500C25B89 /* LoginViewController.swift */; };
 		CB9C8D4E1E37C1D500C25B89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB9C8D4C1E37C1D500C25B89 /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 		CB81AA2F1E38961500C45BC5 /* PostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostingViewController.swift; sourceTree = "<group>"; };
 		CB81AA321E38A1E300C45BC5 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		CB81AA351E38AEDC00C45BC5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		CB81AA3E1E38D33D00C45BC5 /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		CB9C8D451E37C1D500C25B89 /* On the map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On the map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB9C8D481E37C1D500C25B89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB9C8D4A1E37C1D500C25B89 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CB81AA371E38B2D400C45BC5 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				CB81AA3E1E38D33D00C45BC5 /* StudentLocation.swift */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
 		CB9C8D3C1E37C1D500C25B89 = {
 			isa = PBXGroup;
 			children = (
@@ -137,8 +147,8 @@
 				CB9C8D781E37C61900C25B89 /* Controller */,
 				CB9C8D771E37C61000C25B89 /* View */,
 				CB9C8D761E37C60900C25B89 /* Model */,
-				CB9C8D481E37C1D500C25B89 /* AppDelegate.swift */,
 				CB9C8D541E37C1D500C25B89 /* Info.plist */,
+				CB9C8D481E37C1D500C25B89 /* AppDelegate.swift */,
 			);
 			path = "On the map";
 			sourceTree = "<group>";
@@ -164,7 +174,8 @@
 		CB9C8D761E37C60900C25B89 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CB9C8D791E37C63500C25B89 /* Clients */,
+				CB81AA371E38B2D400C45BC5 /* Entities */,
+				CB9C8D791E37C63500C25B89 /* NetworkingClients */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -190,13 +201,13 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		CB9C8D791E37C63500C25B89 /* Clients */ = {
+		CB9C8D791E37C63500C25B89 /* NetworkingClients */ = {
 			isa = PBXGroup;
 			children = (
 				CB9C8D7B1E37C65000C25B89 /* Parse */,
 				CB9C8D7A1E37C64900C25B89 /* Udacity */,
 			);
-			name = Clients;
+			name = NetworkingClients;
 			sourceTree = "<group>";
 		};
 		CB9C8D7A1E37C64900C25B89 /* Udacity */ = {
@@ -356,6 +367,7 @@
 			files = (
 				CB9C8D4B1E37C1D500C25B89 /* LoginViewController.swift in Sources */,
 				CB81AA2C1E3891E400C45BC5 /* ListViewController.swift in Sources */,
+				CB81AA3F1E38D33D00C45BC5 /* StudentLocation.swift in Sources */,
 				CB9C8D811E37C83100C25B89 /* UdacityConstants.swift in Sources */,
 				CB9C8D831E37C83D00C25B89 /* UdacityClient.swift in Sources */,
 				CB9C8D491E37C1D500C25B89 /* AppDelegate.swift in Sources */,

@@ -16,7 +16,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     
     // TODO: Clicking on the Sign Up link will open Safari to the Udacity sign-up page: https://www.udacity.com/account/auth#!/signup
-
+    // TODO: Display a spinner when the Login is making the network request.
+    // TODO: Password textview with ****** not showing the letters.
+    // TODO: Fix the behaviour when the user is not valid and display the alert. This functionality is not working.
 
     // MARK: Actions
     
@@ -35,10 +37,8 @@ class LoginViewController: UIViewController {
                 //If the login does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or an incorrect email and password.
                 else {
                     self.displayErrorAlertViewWithMessage(errorString!)
-
                 }
             }
-            
         }
     }
     
@@ -54,13 +54,12 @@ class LoginViewController: UIViewController {
     func displayErrorAlertViewWithMessage (_ errorString: String) {
         
         let alertController = UIAlertController()
-        alertController.title = "ERROR"
+        alertController.title = "LOGIN ERROR"
         alertController.message = errorString
         let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default) { action in
             self.dismiss(animated: true, completion: nil)
         }
         alertController.addAction(okAction)
-        
     }
     
     

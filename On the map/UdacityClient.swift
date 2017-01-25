@@ -21,46 +21,190 @@ class UdacityClient : NSObject {
         return Singleton.sharedInstance
     }
     
-    // MARK: Properties
+    // MARK: Initializers
     
-    // Shared session
-    var session = URLSession.shared
-    
-    
-    // MARK: Initializers.
     override init() {
         super.init()
     }
     
     
-    // MARK: Authentication method:
+    // MARK: Authentication method
+    
     func authenticateUser (_ user: String, password: String, completionHandlerForAuth: @escaping(_ success: Bool, _ errorString: String?) -> Void) {
         
-        // TODO: Authenticate user
-        print ("TODO: Authenticate user")
-        /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
-        //let parameters = [String:AnyObject]()
+        var success = false
+        var errorString = ""
         
-        /* 2. Make the request */
-        //let _ = taskForGETMethod(Methods.AuthenticationTokenNew, parameters: parameters) { (results, error) in
+        let request = NSMutableURLRequest(url: createURLStringWithParameters(nil, withPathExtension: UdacityClient.Methods.session))
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = "{\"\(UdacityClient.JSONBodyKeys.udacity)\": {\"\(UdacityClient.JSONBodyKeys.username)\": \"\(user)\", \"\(UdacityClient.JSONBodyKeys.password)\": \"\(password)\"}}".data(using: String.Encoding.utf8)
+        let session = URLSession.shared
+        
+        let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
-        /* 3. Send the desired value(s) to completion handler */
-//        if let error = error {
-//            print(error)
-//            completionHandlerForToken(false, nil, "Login Failed (Request Token).")
-//        } else {
-//            if let requestToken = results?[TMDBClient.JSONResponseKeys.RequestToken] as? String {
-//                completionHandlerForToken(true, requestToken, nil)
-//            } else {
-//                print("Could not find \(TMDBClient.JSONResponseKeys.RequestToken) in \(results)")
-//                completionHandlerForToken(false, nil, "Login Failed (Request Token).")
-//            }
-//        }
-        let success = true
-        let errorString:String? = nil
-        completionHandlerForAuth(success, errorString)
+            guard error == nil else {
+                errorString = (error?.localizedDescription)!
+                completionHandlerForAuth(success, errorString)
+                return
+            }
+            
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                errorString = "Your request returned a status code other than 2xx!"
+                completionHandlerForAuth(success, errorString)
+                return
+            }
+            
+            guard let data = data else {
+                errorString = "No data was returned by the request!"
+                completionHandlerForAuth(success, errorString)
+                return
+            }
+            
+            // FOR ALL RESPONSES FROM THE UDACITY API, WE NEED TO SKIP THE FIRST 5 CHARACTERS OF THE RESPONSE. These characters are used for security purposes.
+            let range = Range(uncheckedBounds: (5, data.count))
+            let newData = data.subdata(in: range) /* subset response data! */
+            print("The received data in the response is:")
+            print(NSString(data: newData, encoding: String.Encoding.utf8.rawValue)!)
+            
+            var parsedResult: AnyObject! = nil
+            do {
+                parsedResult = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as! [String:AnyObject] as AnyObject!
+            } catch {
+                errorString = "Could not parse the data as JSON"
+                completionHandlerForAuth(success, errorString)
+                return
+            }
+            
+            // ERROR
+            if let _ = parsedResult[JSONResponseKeys.status] as? Int,
+                let error = parsedResult[JSONResponseKeys.error] as? String {
+                completionHandlerForAuth(success, error)
+                return
+            }
+            
+            // SUCCESS
+            if let account = parsedResult[JSONResponseKeys.account] as? [String:AnyObject],
+                let key = account[JSONResponseKeys.userKey] as? String {
+                print("User logged in with key = \(key)")
+                success = true
+                completionHandlerForAuth(success, errorString)
+                return
+            }
+            
+            // Catch all errors in case there is no success
+            errorString = "Unable to login"
+            completionHandlerForAuth(success, errorString)
+            
+        }
+        task.resume()
     }
     
     
+    // MARK: Logout - Deleting a session
+    
+    func logout (_ completionHandlerForLogout: @escaping(_ success: Bool, _ errorString: String?) -> Void) {
+        
+        var success = false
+        var errorString = ""
+        
+        let request = NSMutableURLRequest(url: createURLStringWithParameters(nil, withPathExtension: UdacityClient.Methods.session))
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = URLSession.shared
+        
+        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+            
+            guard error == nil else {
+                errorString = (error?.localizedDescription)!
+                completionHandlerForLogout(success, errorString)
+                return
+            }
+            
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                errorString = "Your request returned a status code other than 2xx!"
+                completionHandlerForLogout(success, errorString)
+                return
+            }
+            
+            guard let data = data else {
+                errorString = "No data was returned by the request!"
+                completionHandlerForLogout(success, errorString)
+                return
+            }
+            
+            // FOR ALL RESPONSES FROM THE UDACITY API, WE NEED TO SKIP THE FIRST 5 CHARACTERS OF THE RESPONSE. These characters are used for security purposes.
+            let range = Range(uncheckedBounds: (5, data.count))
+            let newData = data.subdata(in: range) /* subset response data! */
+            print("The received data in the response is:")
+            print(NSString(data: newData, encoding: String.Encoding.utf8.rawValue)!)
+            
+            // TODO: Manage the response from the Web Service. For now, I return true and "" error.
+            
+//            var parsedResult: AnyObject! = nil
+//            do {
+//                parsedResult = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as! [String:AnyObject] as AnyObject!
+//            } catch {
+//                errorString = "Could not parse the data as JSON"
+//                completionHandlerForAuth(success, errorString)
+//                return
+//            }
+//            
+//            // ERROR
+//            if let _ = parsedResult[JSONResponseKeys.status] as? Int,
+//                let error = parsedResult[JSONResponseKeys.error] as? String {
+//                completionHandlerForAuth(success, error)
+//                return
+//            }
+//            
+//            // SUCCESS
+//            if let account = parsedResult[JSONResponseKeys.account] as? [String:AnyObject],
+//                let key = account[JSONResponseKeys.userKey] as? String {
+//                print("User logged in with key = \(key)")
+//                success = true
+//                completionHandlerForAuth(success, errorString)
+//                return
+//            }
+//            
+//            // Catch all errors in case there is no success
+//            errorString = "Unable to login"
+//            completionHandlerForAuth(success, errorString)
+            
+            success = true
+            completionHandlerForLogout (success, "")
+            
+        }
+        task.resume()
+    }
+    
+    
+    // MARK: Auxiliary functions
+    
+    func createURLStringWithParameters (_ parameters: [String:AnyObject]?, withPathExtension: String?) -> URL {
+        
+        
+        var components = URLComponents()
+        components.scheme = UdacityClient.Constants.ApiScheme
+        components.host = UdacityClient.Constants.ApiHost
+        components.path = UdacityClient.Constants.ApiPath + (withPathExtension ?? "")
+        components.queryItems = [URLQueryItem]()
+        
+        if (parameters != nil) {
+            for (key, value) in parameters! {
+                let queryItem = URLQueryItem(name: key, value: "\(value)")
+                components.queryItems!.append(queryItem)
+            }
+        }
+        
+        return components.url!
+    }
     
 }
