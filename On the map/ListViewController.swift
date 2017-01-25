@@ -9,18 +9,34 @@
 import Foundation
 import UIKit
 
-class ListViewController : UIViewController {
+class ListViewController : UITableViewController {
+    
+    // MARK: Properties
+    
+    let sharedStudentsData = SharedDataSource.sharedInstance()
+
+    
+    // MARK: Initialization
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // TODO: Start ActivityIndicator (UI)
+        
+        // Setting the delegate and the dataSource of the tableView
+        tableView.delegate = self
+        tableView.dataSource = sharedStudentsData
+        
+        // Adding the observer for the event of refreshing the data
+        NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateSuccess), name: NSNotification.Name(rawValue: "refreshStudentLocationsSuccessful"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateFailed), name: NSNotification.Name(rawValue: "refreshStudentLocationsFailed"), object: nil)
+        
+        // Refreshing the student locations
+        sharedStudentsData.refreshStudentLocations()
+        
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
     // MARK: Actions
     
     @IBAction func doLogout(_ sender: Any) {
@@ -40,6 +56,11 @@ class ListViewController : UIViewController {
         }
     }
     
+    func completeLogout() {
+        let controller = storyboard!.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        present(controller, animated: true, completion: nil)
+    }
+    
     @IBAction func postLocation(_ sender: Any) {
         
         // TODO: Present this view modally and not this way.
@@ -48,19 +69,41 @@ class ListViewController : UIViewController {
     }
     
     @IBAction func refreshMap(_ sender: Any) {
+        sharedStudentsData.refreshStudentLocations()
+    }
+    
+    
+    // MARK: Responses for the refresh map event
+    
+    func studentLocationsDidUpdateSuccess() {
+        // TODO: Stop ActivityIndicator (UI)
+        tableView.reloadData()
+    }
+    
+    func studentLocationsDidUpdateFailed() {
+        // TODO: Stop ActivityIndicator (UI)
+        displayErrorAlertViewWithMessage("There was an error when updating the student locations")
+    }
+    
+    
+    // MARK: UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // TODO: RefreshMap
+        let studentMediaURL = sharedStudentsData.studentLocations[indexPath.row].mediaURL
+        
+        if let mediaURL = URL(string: studentMediaURL) {
+            if UIApplication.shared.canOpenURL(mediaURL) {
+                UIApplication.shared.open(mediaURL, options: [:], completionHandler: nil)
+            } else {
+                displayErrorAlertViewWithMessage("There was an error when opening the URL.")
+            }
+        }
     }
     
     
     // MARK: Auxiliary functions
     
-    func completeLogout() {
-        let controller = storyboard!.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        present(controller, animated: true, completion: nil)
-    }
-    
-    // To present an error alert view
     func displayErrorAlertViewWithMessage (_ errorString: String) {
         
         let alertController = UIAlertController()
@@ -71,5 +114,4 @@ class ListViewController : UIViewController {
         }
         alertController.addAction(okAction)
     }
-    
 }

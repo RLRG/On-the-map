@@ -14,9 +14,9 @@ class ParseClient : NSObject {
     
     // MARK: Shared Instance
     
-    class func sharedInstance() -> UdacityClient {
+    class func sharedInstance() -> ParseClient {
         struct Singleton {
-            static var sharedInstance = UdacityClient()
+            static var sharedInstance = ParseClient()
         }
         return Singleton.sharedInstance
     }
@@ -32,7 +32,7 @@ class ParseClient : NSObject {
     
     // MARK: GET Student Locations
     
-    func getStudentLocations (_ completionHandlerGetStudentLocations: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+    func getStudentLocations (_ completionHandlerGetStudentLocations: @escaping (_ success: Bool, _ studentLocations: [StudentLocation]?) -> Void) {
         
         // TODO: GetStudentLocations
 //        Optional Parameters:
@@ -64,7 +64,7 @@ class ParseClient : NSObject {
         task.resume()
         
         ///////////////////////////////////////////////
-        completionHandlerGetStudentLocations(true, "")
+        completionHandlerGetStudentLocations(true, nil)
     }
     
     

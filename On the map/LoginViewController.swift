@@ -11,6 +11,7 @@ import UIKit
 class LoginViewController: UIViewController {
 
     // MARK: UI elements
+    
     @IBOutlet weak var emailTextView: UITextField!
     @IBOutlet weak var passwordTextView: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -34,7 +35,7 @@ class LoginViewController: UIViewController {
                 if success {
                     self.completeLogin()
                 }
-                //If the login does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or an incorrect email and password.
+                // If the login does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or an incorrect email and password.
                 else {
                     self.displayErrorAlertViewWithMessage(errorString!)
                 }
