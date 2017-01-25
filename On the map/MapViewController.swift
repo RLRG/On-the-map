@@ -102,6 +102,7 @@ class MapViewController : UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
         alertController.addAction(okAction)
+        present(alertController, animated: true, completion:nil)
     }
     
 }

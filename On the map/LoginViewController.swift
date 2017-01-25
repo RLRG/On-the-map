@@ -17,7 +17,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    // TODO: Fix the behaviour when the user is not valid and display the alert. This functionality is not working.
 
     // MARK: Actions
     
@@ -71,6 +70,7 @@ class LoginViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
         alertController.addAction(okAction)
+        present(alertController, animated: true, completion:nil)
     }
     
     
