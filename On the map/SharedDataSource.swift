@@ -36,7 +36,7 @@ class SharedDataSource: NSObject, UITableViewDataSource {
     
     func refreshStudentLocations() {
         
-        parseClient.getStudentLocations() { (success, students) in
+        parseClient.getStudentLocations(optionalUserKey: nil) { (success, students, errorString) in
             
             if success {
                 self.studentLocations = students!
@@ -44,6 +44,8 @@ class SharedDataSource: NSObject, UITableViewDataSource {
             }
             else {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStudentLocationsFailed"), object: nil)
+                // TODO: Manage errorString
+                print(errorString ?? "Error in refreshStudentLocations")
             }
         }
     }
@@ -58,7 +60,7 @@ class SharedDataSource: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OTMTableViewCell") as UITableViewCell?
         let studentLocation = studentLocations[indexPath.item]
-        cell?.textLabel?.text = studentLocation.firstName
+        cell?.textLabel?.text = "\(studentLocation.firstName) \(studentLocation.lastName)"
         return cell!
     }
 }

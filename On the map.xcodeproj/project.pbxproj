@@ -176,9 +176,9 @@
 		CB9C8D761E37C60900C25B89 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CB81AA421E38F39A00C45BC5 /* SharedDataSource.swift */,
 				CB81AA371E38B2D400C45BC5 /* Entities */,
 				CB9C8D791E37C63500C25B89 /* NetworkingClients */,
-				CB81AA421E38F39A00C45BC5 /* SharedDataSource.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";

@@ -36,9 +36,4 @@ struct StudentLocation {
         updatedAt = Date()
         ACL = ""
     }
-    
-    // TODO: INIT FUNCTION WITH ALL THE PARAMETERS
-    // init ()
-    
-    
 }

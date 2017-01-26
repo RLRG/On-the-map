@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -168,9 +168,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Jpl-yy-Ofm">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Jpl-yy-Ofm">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p7r-Mf-W0q">
@@ -205,14 +204,17 @@
                             <constraint firstItem="VIj-uW-UaL" firstAttribute="top" secondItem="p7r-Mf-W0q" secondAttribute="bottom" id="Tgt-V8-Lka"/>
                             <constraint firstItem="VIj-uW-UaL" firstAttribute="leading" secondItem="pC3-W3-eKt" secondAttribute="leading" id="XHz-ID-M2I"/>
                             <constraint firstAttribute="trailing" secondItem="VIj-uW-UaL" secondAttribute="trailing" id="ZJ8-G9-SLg"/>
+                            <constraint firstItem="Jpl-yy-Ofm" firstAttribute="centerX" secondItem="VIj-uW-UaL" secondAttribute="centerX" id="aKW-0T-q3i"/>
                             <constraint firstAttribute="trailing" secondItem="p7r-Mf-W0q" secondAttribute="trailing" id="dS0-Gt-BGV"/>
                             <constraint firstItem="p7r-Mf-W0q" firstAttribute="top" secondItem="Sr6-PO-Ri5" secondAttribute="bottom" id="i5Y-xz-IUk"/>
                             <constraint firstItem="VIj-uW-UaL" firstAttribute="top" secondItem="p7r-Mf-W0q" secondAttribute="bottom" id="ndx-bX-TGB"/>
+                            <constraint firstItem="Jpl-yy-Ofm" firstAttribute="centerY" secondItem="pC3-W3-eKt" secondAttribute="centerY" id="y3n-QJ-AwB"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="list" id="1Go-Ik-1eh"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Jpl-yy-Ofm" id="Qe3-Lw-m2P"/>
+                        <outlet property="tableViewList" destination="VIj-uW-UaL" id="ORo-4N-RYF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nSd-ns-zuW" userLabel="First Responder" sceneMemberID="firstResponder"/>

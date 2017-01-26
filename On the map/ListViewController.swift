@@ -9,10 +9,11 @@
 import Foundation
 import UIKit
 
-class ListViewController : UITableViewController {
+class ListViewController : UIViewController, UITableViewDelegate {
     
     // MARK: Properties
     
+    @IBOutlet weak var tableViewList: UITableView!
     let sharedStudentsData = SharedDataSource.sharedInstance()
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -26,8 +27,8 @@ class ListViewController : UITableViewController {
         activityIndicator.hidesWhenStopped = true
         
         // Setting the delegate and the dataSource of the tableView
-        tableView.delegate = self
-        tableView.dataSource = sharedStudentsData
+        tableViewList.delegate = self
+        tableViewList.dataSource = sharedStudentsData
         
         // Adding the observer for the event of refreshing the data
         NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateSuccess), name: NSNotification.Name(rawValue: "refreshStudentLocationsSuccessful"), object: nil)
@@ -80,7 +81,7 @@ class ListViewController : UITableViewController {
     func studentLocationsDidUpdateSuccess() {
         // Stopping ActivityIndicator
         activityIndicator.stopAnimating()
-        tableView.reloadData()
+        tableViewList.reloadData()
     }
     
     func studentLocationsDidUpdateFailed() {
@@ -92,7 +93,7 @@ class ListViewController : UITableViewController {
     
     // MARK: UITableViewDelegate
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let studentMediaURL = sharedStudentsData.studentLocations[indexPath.row].mediaURL
         

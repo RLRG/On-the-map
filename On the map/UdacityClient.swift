@@ -189,8 +189,6 @@ class UdacityClient : NSObject {
     // MARK: Auxiliary functions
     
     func createURLStringWithParameters (_ parameters: [String:AnyObject]?, withPathExtension: String?) -> URL {
-        
-        
         var components = URLComponents()
         components.scheme = UdacityClient.Constants.ApiScheme
         components.host = UdacityClient.Constants.ApiHost
