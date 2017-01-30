@@ -201,10 +201,10 @@
                         <constraints>
                             <constraint firstItem="p7r-Mf-W0q" firstAttribute="leading" secondItem="pC3-W3-eKt" secondAttribute="leading" id="1Ny-5A-Bmg"/>
                             <constraint firstAttribute="bottom" secondItem="VIj-uW-UaL" secondAttribute="bottom" id="6I8-LA-Eok"/>
+                            <constraint firstItem="Jpl-yy-Ofm" firstAttribute="centerX" secondItem="pC3-W3-eKt" secondAttribute="centerX" id="KjI-rI-1hk"/>
                             <constraint firstItem="VIj-uW-UaL" firstAttribute="top" secondItem="p7r-Mf-W0q" secondAttribute="bottom" id="Tgt-V8-Lka"/>
                             <constraint firstItem="VIj-uW-UaL" firstAttribute="leading" secondItem="pC3-W3-eKt" secondAttribute="leading" id="XHz-ID-M2I"/>
                             <constraint firstAttribute="trailing" secondItem="VIj-uW-UaL" secondAttribute="trailing" id="ZJ8-G9-SLg"/>
-                            <constraint firstItem="Jpl-yy-Ofm" firstAttribute="centerX" secondItem="VIj-uW-UaL" secondAttribute="centerX" id="aKW-0T-q3i"/>
                             <constraint firstAttribute="trailing" secondItem="p7r-Mf-W0q" secondAttribute="trailing" id="dS0-Gt-BGV"/>
                             <constraint firstItem="p7r-Mf-W0q" firstAttribute="top" secondItem="Sr6-PO-Ri5" secondAttribute="bottom" id="i5Y-xz-IUk"/>
                             <constraint firstItem="VIj-uW-UaL" firstAttribute="top" secondItem="p7r-Mf-W0q" secondAttribute="bottom" id="ndx-bX-TGB"/>
@@ -260,9 +260,8 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="p1i-UM-Rhr">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="p1i-UM-Rhr">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
@@ -274,13 +273,16 @@
                             <constraint firstAttribute="bottom" secondItem="DcR-ja-aE8" secondAttribute="bottom" id="Qz2-l4-prd"/>
                             <constraint firstItem="DcR-ja-aE8" firstAttribute="top" secondItem="o61-b2-02O" secondAttribute="bottom" id="VUH-1u-6LV"/>
                             <constraint firstAttribute="trailing" secondItem="o61-b2-02O" secondAttribute="trailing" id="VYW-4b-v5o"/>
+                            <constraint firstItem="p1i-UM-Rhr" firstAttribute="centerX" secondItem="ftW-ms-qto" secondAttribute="centerX" id="cbZ-1H-Mly"/>
                             <constraint firstItem="DcR-ja-aE8" firstAttribute="leading" secondItem="ftW-ms-qto" secondAttribute="leading" id="lMM-EH-BsI"/>
                             <constraint firstItem="o61-b2-02O" firstAttribute="leading" secondItem="ftW-ms-qto" secondAttribute="leading" id="lvD-ex-Cvn"/>
+                            <constraint firstItem="p1i-UM-Rhr" firstAttribute="centerY" secondItem="ftW-ms-qto" secondAttribute="centerY" id="uik-8N-IbU"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="Tqh-yr-SFu"/>
                     <connections>
                         <outlet property="activityIndicator" destination="p1i-UM-Rhr" id="94E-Of-PXK"/>
+                        <outlet property="mapView" destination="DcR-ja-aE8" id="b3A-sS-vuT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WRv-or-Dxq" userLabel="First Responder" sceneMemberID="firstResponder"/>
