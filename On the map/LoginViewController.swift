@@ -26,22 +26,29 @@ class LoginViewController: UIViewController {
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
         
-        // TODO: Check textField values !!
-        UdacityClient.sharedInstance().authenticateUser(emailTextView.text!, password: passwordTextView.text!) { (success, errorString) in
-            
-            self.activityIndicator.stopAnimating()
-            
-            performUIUpdatesOnMain {
-                // If the connection is made and the email and password are good, the app will segue to the Map and Table Tabbed View.
-                if success {
-                    self.completeLogin()
-                }
-                // If the login does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or an incorrect email and password.
-                else {
-                    self.displayErrorAlertViewWithMessage(errorString!)
+        if (emailTextView.text != "" && passwordTextView.text != "")
+        {
+            UdacityClient.sharedInstance().authenticateUser(emailTextView.text!, password: passwordTextView.text!) { (success, errorString) in
+                
+                self.activityIndicator.stopAnimating()
+                
+                performUIUpdatesOnMain {
+                    // If the connection is made and the email and password are good, the app will segue to the Map and Table Tabbed View.
+                    if success {
+                        self.completeLogin()
+                    }
+                        // If the login does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or an incorrect email and password.
+                    else {
+                        self.displayErrorAlertViewWithMessage(errorString!)
+                    }
                 }
             }
         }
+        else{
+            self.activityIndicator.stopAnimating()
+            self.displayErrorAlertViewWithMessage("Please, complete the email and password boxes to login")
+        }
+        
     }
     
     @IBAction func signUp(_ sender: Any) {

@@ -43,9 +43,7 @@ class SharedDataSource: NSObject, UITableViewDataSource {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStudentLocationsSuccessful"), object: nil)
             }
             else {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStudentLocationsFailed"), object: nil)
-                // TODO: Manage errorString
-                print(errorString ?? "Error in refreshStudentLocations")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshStudentLocationsFailed"), object: nil, userInfo: [ "error" : errorString ?? "Error in refreshStudentLocations"])
             }
         }
     }

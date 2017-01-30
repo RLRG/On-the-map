@@ -147,40 +147,26 @@ class UdacityClient : NSObject {
             print("The received data in the response is:")
             print(NSString(data: newData, encoding: String.Encoding.utf8.rawValue)!)
             
-            // TODO: Manage the response from the Web Service. For now, I return true and "" error.
+            var parsedResult: AnyObject! = nil
+            do {
+                parsedResult = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as! [String:AnyObject] as AnyObject!
+            } catch {
+                errorString = "Could not parse the data as JSON"
+                completionHandlerForLogout(success, errorString)
+                return
+            }
             
-//            var parsedResult: AnyObject! = nil
-//            do {
-//                parsedResult = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as! [String:AnyObject] as AnyObject!
-//            } catch {
-//                errorString = "Could not parse the data as JSON"
-//                completionHandlerForAuth(success, errorString)
-//                return
-//            }
-//            
-//            // ERROR
-//            if let _ = parsedResult[JSONResponseKeys.status] as? Int,
-//                let error = parsedResult[JSONResponseKeys.error] as? String {
-//                completionHandlerForAuth(success, error)
-//                return
-//            }
-//            
-//            // SUCCESS
-//            if let account = parsedResult[JSONResponseKeys.account] as? [String:AnyObject],
-//                let key = account[JSONResponseKeys.userKey] as? String {
-//                print("User logged in with key = \(key)")
-//                success = true
-//                completionHandlerForAuth(success, errorString)
-//                return
-//            }
-//            
-//            // Catch all errors in case there is no success
-//            errorString = "Unable to login"
-//            completionHandlerForAuth(success, errorString)
+            // SUCCESS LOGGING OUT
+            if let _ = parsedResult[JSONResponseKeys.session] as? [String:AnyObject] {
+                print("User logged out successfully")
+                success = true
+                completionHandlerForLogout(success, nil)
+                return
+            }
             
-            success = true
-            completionHandlerForLogout (success, "")
-            
+            // Catch all errors in case there is no success
+            errorString = "Unable to logout"
+            completionHandlerForLogout(success, errorString)
         }
         task.resume()
     }

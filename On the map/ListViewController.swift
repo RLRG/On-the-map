@@ -65,8 +65,6 @@ class ListViewController : UIViewController, UITableViewDelegate {
     }
     
     @IBAction func postLocation(_ sender: Any) {
-        
-        // TODO: Present this view modally and not this way.
         let controller = storyboard!.instantiateViewController(withIdentifier: "PostingViewController") as! PostingViewController
         present(controller, animated: true, completion: nil)
     }
@@ -78,16 +76,22 @@ class ListViewController : UIViewController, UITableViewDelegate {
     
     // MARK: Responses for the refresh map event
     
-    func studentLocationsDidUpdateSuccess() {
+    func studentLocationsDidUpdateSuccess(_ notification:NSNotification) {
         // Stopping ActivityIndicator
         activityIndicator.stopAnimating()
         tableViewList.reloadData()
     }
     
-    func studentLocationsDidUpdateFailed() {
+    func studentLocationsDidUpdateFailed(_ notification:NSNotification) {
         // Stopping ActivityIndicator
         activityIndicator.stopAnimating()
-        displayErrorAlertViewWithMessage("There was an error when updating the student locations")
+        let userInfo = notification.userInfo
+        if let error = userInfo?["error"] {
+            displayErrorAlertViewWithMessage(error as! String)
+        }
+        else{
+            displayErrorAlertViewWithMessage("There was an error when updating the student locations")
+        }
     }
     
     

@@ -151,8 +151,7 @@ class ParseClient : NSObject {
         request.addValue(ParseClient.Constants.parseAppId, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(ParseClient.Constants.restApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        // TODO: Create request JSON Body --> postStudentLocation
-        request.httpBody = "{\"\(ParseClient.JSONBodyKeys.UniqueKey)\": \"XXXXXXXX\", \"\(ParseClient.JSONBodyKeys.FirstName)\": \"XXXXXXXXX\", \"\(ParseClient.JSONBodyKeys.LastName)\": \"XXXXXXXXXXXXXXX\",\"\(ParseClient.JSONBodyKeys.MapString)\": \"XXXXXXXXX\", \"\(ParseClient.JSONBodyKeys.MediaURL)\": \"XXXXXXXXXXXX\",\"\(ParseClient.JSONBodyKeys.Latitude)\": XXXXXXXXXXXXX, \"\(ParseClient.JSONBodyKeys.Longitude)\": XXXXXXXXXXXX}".data(using: String.Encoding.utf8)
+        request.httpBody = "{\"\(ParseClient.JSONBodyKeys.UniqueKey)\": \"TODO: UniqueKey\", \"\(ParseClient.JSONBodyKeys.FirstName)\": \"\(ParseClient.JSONBodyValues.FirstName)\", \"\(ParseClient.JSONBodyKeys.LastName)\": \"\(ParseClient.JSONBodyValues.LastName)\",\"\(ParseClient.JSONBodyKeys.MapString)\": \"TODO: MapString\", \"\(ParseClient.JSONBodyKeys.MediaURL)\": \"\(ParseClient.JSONBodyValues.MediaURL)\",\"\(ParseClient.JSONBodyKeys.Latitude)\": TODO: Latitude, \"\(ParseClient.JSONBodyKeys.Longitude)\": TODO: Longitude}".data(using: String.Encoding.utf8)
         let session = URLSession.shared
         
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
@@ -211,8 +210,7 @@ class ParseClient : NSObject {
         request.addValue(ParseClient.Constants.parseAppId, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(ParseClient.Constants.restApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        // TODO: Create request JSON Body --> updateStudentLocation
-        request.httpBody = "{\"\(ParseClient.JSONBodyKeys.UniqueKey)\": \"XXXXXXXX\", \"\(ParseClient.JSONBodyKeys.FirstName)\": \"XXXXXXXXX\", \"\(ParseClient.JSONBodyKeys.LastName)\": \"XXXXXXXXXXXXXXX\",\"\(ParseClient.JSONBodyKeys.MapString)\": \"XXXXXXXXX\", \"\(ParseClient.JSONBodyKeys.MediaURL)\": \"XXXXXXXXXXXX\",\"\(ParseClient.JSONBodyKeys.Latitude)\": XXXXXXXXXXXXX, \"\(ParseClient.JSONBodyKeys.Longitude)\": XXXXXXXXXXXX}".data(using: String.Encoding.utf8)
+        request.httpBody = "{\"\(ParseClient.JSONBodyKeys.UniqueKey)\": \"TODO: UniqueKey\", \"\(ParseClient.JSONBodyKeys.FirstName)\": \"\(ParseClient.JSONBodyValues.FirstName)\", \"\(ParseClient.JSONBodyKeys.LastName)\": \"\(ParseClient.JSONBodyValues.LastName)\",\"\(ParseClient.JSONBodyKeys.MapString)\": \"TODO: MapString\", \"\(ParseClient.JSONBodyKeys.MediaURL)\": \"\(ParseClient.JSONBodyValues.MediaURL)\",\"\(ParseClient.JSONBodyKeys.Latitude)\": TODO: Latitude, \"\(ParseClient.JSONBodyKeys.Longitude)\": TODO: Longitude}".data(using: String.Encoding.utf8)
         let session = URLSession.shared
         
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
