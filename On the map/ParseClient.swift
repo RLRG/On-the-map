@@ -186,8 +186,18 @@ class ParseClient : NSObject {
                 return
             }
             
-            // TODO: Managing the response of the request --> postStudentLocation
-            
+            // Managing the response of the request --> postStudentLocation
+            // Success
+            if let _ = parsedResult[JSONResponseKeys.ObjectID] as? String {
+                success = true
+                completionHandlerPostStudentLocation(success, nil)
+                return
+            }
+            // Failure
+            if let error = parsedResult[JSONResponseKeys.Error] as? String {
+                completionHandlerPostStudentLocation(success, error)
+                return
+            }
             
             // Catch all errors in case there is no success
             errorString = "Unable to post student location"
@@ -199,13 +209,12 @@ class ParseClient : NSObject {
     
     // MARK: PUT - Update Student Location
     
-    func updateStudentLocation (_ completionHandlerUpdateStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+    func updateStudentLocationWithObjectID (_ objectID: String, _ completionHandlerUpdateStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         var success = false
         var errorString:String? = nil
         
-        // TODO: Include the OBJECT_ID FIELD IN THE REQUEST
-        let request = NSMutableURLRequest(url: createURLStringWithParameters(nil, withPathExtension: "\(ParseClient.Methods.StudentLocation)/OBJECTID_____XXXXXXXXXx"))
+        let request = NSMutableURLRequest(url: createURLStringWithParameters(nil, withPathExtension: "\(ParseClient.Methods.StudentLocation)/\(objectID)"))
         request.httpMethod = "PUT"
         request.addValue(ParseClient.Constants.parseAppId, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(ParseClient.Constants.restApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
@@ -245,16 +254,25 @@ class ParseClient : NSObject {
                 return
             }
             
-            // TODO: Managing the response of the request --> updateStudentLocation
-            
+            // Managing the response of the request --> updateStudentLocation
+            // Success
+            if let _ = parsedResult[JSONResponseKeys.ObjectID] as? String {
+                success = true
+                completionHandlerUpdateStudentLocation(success, nil)
+                return
+            }
+            // Failure
+            if let error = parsedResult[JSONResponseKeys.Error] as? String {
+                completionHandlerUpdateStudentLocation(success, error)
+                return
+            }
             
             // Catch all errors in case there is no success
-            errorString = "Unable to post student location"
+            errorString = "Unable to update student location"
             completionHandlerUpdateStudentLocation(success, errorString)
         }
         task.resume()
     }
-    
 }
 
 
