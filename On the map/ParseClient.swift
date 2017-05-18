@@ -141,7 +141,7 @@ class ParseClient : NSObject {
     
     // MARK: POST Student Location
     
-    func postStudentLocation (_ completionHandlerPostStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+    func postStudentLocation (_ studentLocation: StudentLocation, _ completionHandlerPostStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         var success = false
         var errorString:String? = nil

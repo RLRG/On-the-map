@@ -27,6 +27,7 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
     
     // Properties
     var studentLocation = StudentLocation()
+    let parseClient = ParseClient.sharedInstance()
     
     // MARK: - Lifecycle functions
     
@@ -88,11 +89,7 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
     
     // MARK:  Map related
     
-    func addAnnotationAndSetMap(){
-        
-        // TODO: REMOVE THIS TEST !!!!!!!
-        studentLocation.latitude = 41
-        studentLocation.longitude = 4
+    func addAnnotationAndSetMap() {
         
         ///////// COORDINATES //////////
         let lat = CLLocationDegrees(studentLocation.latitude)
@@ -100,17 +97,23 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
         let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        mapView.addAnnotation(annotation)
+        
+        performUIUpdatesOnMain {
+            self.mapView.addAnnotation(annotation)
+        }
         
         ///////// ZOOM LEVEL //////////
         let span = MKCoordinateSpan(latitudeDelta: CLLocationDegrees(5) , longitudeDelta: CLLocationDegrees(5))
         
         ///////// SET REGION //////////
         let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView.setRegion(region, animated: false)
-        mapView.isUserInteractionEnabled = false
-        mapView.isScrollEnabled = false
-        mapView.isZoomEnabled = false
+        performUIUpdatesOnMain{
+            self.mapView.setRegion(region, animated: false)
+            self.mapView.isUserInteractionEnabled = false
+            self.mapView.isScrollEnabled = false
+            self.mapView.isZoomEnabled = false
+        }
+        
     }
     
     // MARK: - UITextField delegate methods
@@ -129,15 +132,53 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
     
     @IBAction func bottomButton(_ sender: Any) {
         
+        // TODO: Start Loading SPINNER.
+        
         // Step 1. Find on the map.
         if bottomButton.titleLabel?.text == "Find on the Map" {
-            // TODO: Find on the map functionality (change UI, etc.)
-            addAnnotationAndSetMap()
-            prepareUIForSubmission()
+            findOnTheMap()
         }
         // Step 2. Submit.
         else if bottomButton.titleLabel?.text == "Submit" {
-            // TODO: Submit functionality (change UI, etc.)
+            submitStudentLocation()
+        }
+    }
+    
+    func findOnTheMap () {
+        // TODO: Check if the text of the locationTextField is valid or not.
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(locationTextField.text!, completionHandler: { (results, error) in
+            
+            guard error == nil else {
+                // TODO: Manage error.
+                return
+            }
+            
+            if (!results!.isEmpty){
+                // TODO: Stop Loading SPINNER.
+                
+                let placemark = results![0]
+                self.studentLocation.latitude = (placemark.location?.coordinate.latitude)!
+                self.studentLocation.longitude = (placemark.location?.coordinate.longitude)!
+                
+                self.addAnnotationAndSetMap()
+                self.prepareUIForSubmission()
+                
+            } else {
+                // TODO: Stop Loading SPINNER.
+                // TODO: Manage error.
+            }
+        })
+    }
+    
+    func submitStudentLocation () {
+        
+        // TODO: Submit functionality (change UI, etc.).
+        parseClient.postStudentLocation(self.studentLocation) { (success, error) in
+            
+            print("postStudentLocation completionHandler")
+            
+            // TODO: Stop Loading SPINNER.
         }
     }
 }
