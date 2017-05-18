@@ -100,6 +100,7 @@ class ListViewController : UIViewController, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let studentMediaURL = sharedStudentsData.studentLocations[indexPath.row].mediaURL
+        tableView.deselectRow(at: indexPath, animated: true)
         
         if let mediaURL = URL(string: studentMediaURL) {
             if UIApplication.shared.canOpenURL(mediaURL) {
