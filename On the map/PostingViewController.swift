@@ -14,6 +14,8 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
     
     // MARK: Outlets & Properties
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     // Upper part of the view
     @IBOutlet weak var upperView: UIView!
     @IBOutlet weak var upperLabel: UITextView!
@@ -132,7 +134,7 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
     
     @IBAction func bottomButton(_ sender: Any) {
         
-        // TODO: Start Loading SPINNER.
+        activityIndicator.startAnimating()
         
         // Step 1. Find on the map.
         if bottomButton.titleLabel?.text == "Find on the Map" {
@@ -145,40 +147,47 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
     }
     
     func findOnTheMap () {
-        // TODO: Check if the text of the locationTextField is valid or not.
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(locationTextField.text!, completionHandler: { (results, error) in
-            
-            guard error == nil else {
-                // TODO: Manage error.
-                return
-            }
-            
-            if (!results!.isEmpty){
-                // TODO: Stop Loading SPINNER.
+        if !locationTextField.text!.isEmpty {
+            let geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(locationTextField.text!, completionHandler: { (results, error) in
                 
-                let placemark = results![0]
-                self.studentLocation.latitude = (placemark.location?.coordinate.latitude)!
-                self.studentLocation.longitude = (placemark.location?.coordinate.longitude)!
+                self.activityIndicator.stopAnimating()
                 
-                self.addAnnotationAndSetMap()
-                self.prepareUIForSubmission()
+                guard error == nil else {
+                    // TODO: Manage error.
+                    return
+                }
                 
-            } else {
-                // TODO: Stop Loading SPINNER.
-                // TODO: Manage error.
-            }
-        })
+                if (!results!.isEmpty){
+                    let placemark = results![0]
+                    self.studentLocation.latitude = (placemark.location?.coordinate.latitude)!
+                    self.studentLocation.longitude = (placemark.location?.coordinate.longitude)!
+                    
+                    self.addAnnotationAndSetMap()
+                    self.prepareUIForSubmission()
+                } else {
+                    // TODO: Manage error.
+                }
+            })
+        } else {
+            // TODO: Display Alert or manage the error:
+            // "The String of the location is empty and the location cannot be found".
+        }
     }
     
     func submitStudentLocation () {
-        
-        // TODO: Submit functionality (change UI, etc.).
-        parseClient.postStudentLocation(self.studentLocation) { (success, error) in
-            
-            print("postStudentLocation completionHandler")
-            
-            // TODO: Stop Loading SPINNER.
+        if !locationTextField.text!.isEmpty {
+            // TODO: Submit functionality (change UI, etc.).
+            parseClient.postStudentLocation(self.studentLocation) { (success, error) in
+                
+                self.activityIndicator.stopAnimating()
+
+                print("postStudentLocation completionHandler")
+
+            }
+        } else {
+            // TODO: Display Alert or manage the error:
+            // "You must enter a website".
         }
     }
 }

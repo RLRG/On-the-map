@@ -383,6 +383,10 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="L4g-JS-7pg">
+                                        <rect key="frame" x="169" y="83" width="37" height="37"/>
+                                        <color key="color" red="1" green="0.71476724229999999" blue="0.25476330019999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1332588791847229" green="0.56363147497177124" blue="0.94202727079391479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -406,8 +410,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dHH-Ij-6Ls" firstAttribute="leading" secondItem="rX2-cz-uTW" secondAttribute="leading" id="2hN-6I-q38"/>
+                            <constraint firstItem="L4g-JS-7pg" firstAttribute="centerX" secondItem="rX2-cz-uTW" secondAttribute="centerX" id="ALZ-Qm-zTn"/>
                             <constraint firstAttribute="trailing" secondItem="dHH-Ij-6Ls" secondAttribute="trailing" id="HWE-Zm-fbn"/>
                             <constraint firstItem="ksS-Jf-tva" firstAttribute="top" secondItem="6XA-oC-cy4" secondAttribute="bottom" id="WTi-EL-jvE"/>
+                            <constraint firstItem="L4g-JS-7pg" firstAttribute="centerY" secondItem="rX2-cz-uTW" secondAttribute="centerY" id="Wtu-mf-19D"/>
                             <constraint firstItem="ksS-Jf-tva" firstAttribute="leading" secondItem="rX2-cz-uTW" secondAttribute="leading" id="Xfa-io-raI"/>
                             <constraint firstItem="8fh-vR-oru" firstAttribute="centerX" secondItem="rX2-cz-uTW" secondAttribute="centerX" id="cG5-bV-let"/>
                             <constraint firstAttribute="trailing" secondItem="ksS-Jf-tva" secondAttribute="trailing" id="fup-cg-q88"/>
@@ -420,6 +426,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="L4g-JS-7pg" id="Tny-3I-MLC"/>
                         <outlet property="bottomButton" destination="sXr-Am-HNv" id="6eu-O5-oPJ"/>
                         <outlet property="bottomGreyView" destination="BVT-4u-Dmu" id="PnZ-ja-g0B"/>
                         <outlet property="locationTextField" destination="HS6-MF-V2z" id="n41-Gq-iGR"/>
