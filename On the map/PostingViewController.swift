@@ -180,7 +180,8 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
     }
     
     func submitStudentLocation () {
-        if !locationTextField.text!.isEmpty {
+        if !urlTextField.text!.isEmpty {
+            self.studentLocation.mediaURL = self.urlTextField.text!
             parseClient.postStudentLocation(self.studentLocation) { (success, error) in
                 self.activityIndicator.stopAnimating()
                 if success {

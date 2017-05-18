@@ -151,8 +151,10 @@ class ParseClient : NSObject {
         request.addValue(ParseClient.Constants.parseAppId, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(ParseClient.Constants.restApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"\(ParseClient.JSONBodyKeys.UniqueKey)\": \(studentLocation.objectId) \", \"\(ParseClient.JSONBodyKeys.FirstName)\": \"\(studentLocation.firstName)\", \"\(ParseClient.JSONBodyKeys.LastName)\": \"\(studentLocation.lastName)\",\"\(ParseClient.JSONBodyKeys.MapString)\": \(studentLocation.mapString) \", \"\(ParseClient.JSONBodyKeys.MediaURL)\": \"\(studentLocation.mediaURL)\",\"\(ParseClient.JSONBodyKeys.Latitude)\": \(studentLocation.latitude) \", \(ParseClient.JSONBodyKeys.Longitude)\": \(studentLocation.longitude)}".data(using: String.Encoding.utf8)
+        request.httpBody = "{\"\"\(ParseClient.JSONBodyKeys.UniqueKey)\": \(studentLocation.uniqueKey) \", \"\(ParseClient.JSONBodyKeys.FirstName)\": \"\(studentLocation.firstName)\", \"\(ParseClient.JSONBodyKeys.LastName)\": \"\(studentLocation.lastName)\",\"\(ParseClient.JSONBodyKeys.MapString)\": \(studentLocation.mapString) \", \"\(ParseClient.JSONBodyKeys.MediaURL)\": \"\(studentLocation.mediaURL)\",\"\(ParseClient.JSONBodyKeys.Latitude)\": \(studentLocation.latitude) \", \(ParseClient.JSONBodyKeys.Longitude)\": \(studentLocation.longitude)}".data(using: String.Encoding.utf8)
         let session = URLSession.shared
+        
+        print("{\"\(ParseClient.JSONBodyKeys.UniqueKey)\": \(studentLocation.objectId) \", \"\(ParseClient.JSONBodyKeys.FirstName)\": \"\(studentLocation.firstName)\", \"\(ParseClient.JSONBodyKeys.LastName)\": \"\(studentLocation.lastName)\",\"\(ParseClient.JSONBodyKeys.MapString)\": \"\(studentLocation.mapString) \", \"\(ParseClient.JSONBodyKeys.MediaURL)\": \"\(studentLocation.mediaURL)\",\"\(ParseClient.JSONBodyKeys.Latitude)\": \(studentLocation.latitude), \(ParseClient.JSONBodyKeys.Longitude)\": \(studentLocation.longitude)}")
         
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
