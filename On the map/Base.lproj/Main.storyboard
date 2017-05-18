@@ -316,9 +316,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ksS-Jf-tva">
                                 <rect key="frame" x="0.0" y="64" width="375" height="168"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Where are you studying today?" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fh-vR-oru">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Where are you studying today?" textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fh-vR-oru">
                                         <rect key="frame" x="67" y="20" width="240" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="MMR-67-8l2"/>
+                                            <constraint firstAttribute="width" constant="240" id="c3L-G6-zVQ"/>
+                                        </constraints>
                                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="33"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -337,7 +340,9 @@
                                 <constraints>
                                     <constraint firstItem="fci-Af-hfE" firstAttribute="leading" secondItem="ksS-Jf-tva" secondAttribute="leading" constant="8" id="AUp-ta-OfD"/>
                                     <constraint firstItem="fci-Af-hfE" firstAttribute="top" secondItem="ksS-Jf-tva" secondAttribute="top" constant="20" id="OF3-iv-UPl"/>
+                                    <constraint firstItem="8fh-vR-oru" firstAttribute="centerX" secondItem="ksS-Jf-tva" secondAttribute="centerX" id="Szv-yj-hdT"/>
                                     <constraint firstAttribute="trailing" secondItem="fci-Af-hfE" secondAttribute="trailing" constant="8" id="Zav-T8-Uni"/>
+                                    <constraint firstItem="8fh-vR-oru" firstAttribute="centerY" secondItem="ksS-Jf-tva" secondAttribute="centerY" id="juX-K0-x0D"/>
                                     <constraint firstAttribute="height" constant="168" id="t18-OB-Xu7"/>
                                 </constraints>
                             </view>
@@ -404,6 +409,7 @@
                             <constraint firstAttribute="trailing" secondItem="dHH-Ij-6Ls" secondAttribute="trailing" id="HWE-Zm-fbn"/>
                             <constraint firstItem="ksS-Jf-tva" firstAttribute="top" secondItem="6XA-oC-cy4" secondAttribute="bottom" id="WTi-EL-jvE"/>
                             <constraint firstItem="ksS-Jf-tva" firstAttribute="leading" secondItem="rX2-cz-uTW" secondAttribute="leading" id="Xfa-io-raI"/>
+                            <constraint firstItem="8fh-vR-oru" firstAttribute="centerX" secondItem="rX2-cz-uTW" secondAttribute="centerX" id="cG5-bV-let"/>
                             <constraint firstAttribute="trailing" secondItem="ksS-Jf-tva" secondAttribute="trailing" id="fup-cg-q88"/>
                             <constraint firstItem="a7Z-Ah-Cyl" firstAttribute="top" secondItem="dHH-Ij-6Ls" secondAttribute="bottom" id="hft-F7-VYd"/>
                             <constraint firstItem="dHH-Ij-6Ls" firstAttribute="top" secondItem="ksS-Jf-tva" secondAttribute="bottom" id="jo5-fp-hcj"/>

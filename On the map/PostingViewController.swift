@@ -25,6 +25,9 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var bottomGreyView: UIView!
     @IBOutlet weak var bottomButton: UIButton!
     
+    // Properties
+    var studentLocation = StudentLocation()
+    
     // MARK: - Lifecycle functions
     
     override func viewDidLoad() {
@@ -53,6 +56,8 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
             
             // Bottom part of the view
             self.locationTextField.isHidden = false
+            self.locationTextField.attributedPlaceholder = NSAttributedString(string: "Type your location here!",
+                                                                   attributes: [NSForegroundColorAttributeName: UIColor.white])
             self.mapView.isHidden = true
             self.bottomGreyView.isHidden = false
             self.bottomGreyView.backgroundColor = UIColor.lightGray
@@ -68,6 +73,8 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
         performUIUpdatesOnMain {
             // Upper part of the view
             self.urlTextField.isHidden = false
+            self.urlTextField.attributedPlaceholder = NSAttributedString(string: "Type your URL here!",
+                                                                              attributes: [NSForegroundColorAttributeName: UIColor.white])
             self.upperLabel.isHidden = true
             self.upperView.backgroundColor = UIColor.blue
             
@@ -79,6 +86,33 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
         }
     }
     
+    // MARK:  Map related
+    
+    func addAnnotationAndSetMap(){
+        
+        // TODO: REMOVE THIS TEST !!!!!!!
+        studentLocation.latitude = 41
+        studentLocation.longitude = 4
+        
+        ///////// COORDINATES //////////
+        let lat = CLLocationDegrees(studentLocation.latitude)
+        let long = CLLocationDegrees(studentLocation.longitude)
+        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
+        
+        ///////// ZOOM LEVEL //////////
+        let span = MKCoordinateSpan(latitudeDelta: CLLocationDegrees(5) , longitudeDelta: CLLocationDegrees(5))
+        
+        ///////// SET REGION //////////
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region, animated: false)
+        mapView.isUserInteractionEnabled = false
+        mapView.isScrollEnabled = false
+        mapView.isZoomEnabled = false
+    }
+    
     // MARK: - UITextField delegate methods
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool // called when 'return' key pressed. return NO to ignore.
@@ -87,7 +121,7 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
         return true;
     }
     
-    // MARK: - Actions and logic
+    // MARK: - Actions
     
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -98,6 +132,7 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
         // Step 1. Find on the map.
         if bottomButton.titleLabel?.text == "Find on the Map" {
             // TODO: Find on the map functionality (change UI, etc.)
+            addAnnotationAndSetMap()
             prepareUIForSubmission()
         }
         // Step 2. Submit.
@@ -105,5 +140,4 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
             // TODO: Submit functionality (change UI, etc.)
         }
     }
-    
 }
