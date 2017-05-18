@@ -12,7 +12,7 @@ import MapKit
 
 class MapViewController : UIViewController, MKMapViewDelegate {
     
-    // MARK: Properties
+    // MARK: Properties & lifecycle functions
     
     let sharedStudentsData = SharedDataSource.sharedInstance()
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -36,15 +36,21 @@ class MapViewController : UIViewController, MKMapViewDelegate {
         // Refreshing the student locations
         sharedStudentsData.refreshStudentLocations()
     }
-    
 
+    
     // MARK: Actions
     
     // TODO: Eliminar redundancia en el código de los dos viewControllers (map & list).
+    // TODO: Revise the observers of the refresh to check how they behave when we are in any of the screens.
+    // TODO: Atenuar el mapa cuando se esté refrescando la información y mostrar/esconder activityIndicator.
     
     @IBAction func doLogout(_ sender: Any) {
         
+        activityIndicator.startAnimating()
+        
         UdacityClient.sharedInstance().logout(){ (success, errorString) in
+            
+            self.activityIndicator.stopAnimating()
             
             performUIUpdatesOnMain {
                 // If the logout is successful, the user will be presented with the login screen again.

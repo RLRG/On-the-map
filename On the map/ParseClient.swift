@@ -151,7 +151,7 @@ class ParseClient : NSObject {
         request.addValue(ParseClient.Constants.parseAppId, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(ParseClient.Constants.restApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"\(ParseClient.JSONBodyKeys.UniqueKey)\": \"TODO: UniqueKey\", \"\(ParseClient.JSONBodyKeys.FirstName)\": \"\(ParseClient.JSONBodyValues.FirstName)\", \"\(ParseClient.JSONBodyKeys.LastName)\": \"\(ParseClient.JSONBodyValues.LastName)\",\"\(ParseClient.JSONBodyKeys.MapString)\": \"TODO: MapString\", \"\(ParseClient.JSONBodyKeys.MediaURL)\": \"\(ParseClient.JSONBodyValues.MediaURL)\",\"\(ParseClient.JSONBodyKeys.Latitude)\": TODO: Latitude, \"\(ParseClient.JSONBodyKeys.Longitude)\": TODO: Longitude}".data(using: String.Encoding.utf8)
+        request.httpBody = "{\"\(ParseClient.JSONBodyKeys.UniqueKey)\": \(studentLocation.objectId) \", \"\(ParseClient.JSONBodyKeys.FirstName)\": \"\(studentLocation.firstName)\", \"\(ParseClient.JSONBodyKeys.LastName)\": \"\(studentLocation.lastName)\",\"\(ParseClient.JSONBodyKeys.MapString)\": \(studentLocation.mapString) \", \"\(ParseClient.JSONBodyKeys.MediaURL)\": \"\(studentLocation.mediaURL)\",\"\(ParseClient.JSONBodyKeys.Latitude)\": \(studentLocation.latitude) \", \(ParseClient.JSONBodyKeys.Longitude)\": \(studentLocation.longitude)}".data(using: String.Encoding.utf8)
         let session = URLSession.shared
         
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
@@ -209,7 +209,8 @@ class ParseClient : NSObject {
     
     // MARK: PUT - Update Student Location
     
-    func updateStudentLocationWithObjectID (_ objectID: String, _ completionHandlerUpdateStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+    // TODO: Use this Web Service wherever it is needed: when the user already posted a location and they want to post again ?
+    func updateStudentLocationWithObjectID (_ objectID: String, _ studentLocation: StudentLocation, _ completionHandlerUpdateStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         var success = false
         var errorString:String? = nil
@@ -219,7 +220,7 @@ class ParseClient : NSObject {
         request.addValue(ParseClient.Constants.parseAppId, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(ParseClient.Constants.restApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"\(ParseClient.JSONBodyKeys.UniqueKey)\": \"TODO: UniqueKey\", \"\(ParseClient.JSONBodyKeys.FirstName)\": \"\(ParseClient.JSONBodyValues.FirstName)\", \"\(ParseClient.JSONBodyKeys.LastName)\": \"\(ParseClient.JSONBodyValues.LastName)\",\"\(ParseClient.JSONBodyKeys.MapString)\": \"TODO: MapString\", \"\(ParseClient.JSONBodyKeys.MediaURL)\": \"\(ParseClient.JSONBodyValues.MediaURL)\",\"\(ParseClient.JSONBodyKeys.Latitude)\": TODO: Latitude, \"\(ParseClient.JSONBodyKeys.Longitude)\": TODO: Longitude}".data(using: String.Encoding.utf8)
+        request.httpBody = "{\"\(ParseClient.JSONBodyKeys.UniqueKey)\": \(studentLocation.objectId) \", \"\(ParseClient.JSONBodyKeys.FirstName)\": \"\(studentLocation.firstName)\", \"\(ParseClient.JSONBodyKeys.LastName)\": \"\(studentLocation.lastName)\",\"\(ParseClient.JSONBodyKeys.MapString)\": \(studentLocation.mapString) \", \"\(ParseClient.JSONBodyKeys.MediaURL)\": \"\(studentLocation.mediaURL)\",\"\(ParseClient.JSONBodyKeys.Latitude)\": \(studentLocation.latitude) \", \(ParseClient.JSONBodyKeys.Longitude)\": \(studentLocation.longitude)}".data(using: String.Encoding.utf8)
         let session = URLSession.shared
         
         let task = session.dataTask(with: request as URLRequest) { data, response, error in

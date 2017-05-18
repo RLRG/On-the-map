@@ -11,13 +11,11 @@ import UIKit
 
 class ListViewController : UIViewController, UITableViewDelegate {
     
-    // MARK: Properties
+    // MARK: Properties & Lifecycle functions
     
     @IBOutlet weak var tableViewList: UITableView!
     let sharedStudentsData = SharedDataSource.sharedInstance()
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-    // MARK: Initialization
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -61,14 +61,8 @@ extension ParseClient {
     }
     
     struct JSONBodyValues {
-        //static let UniqueKey = "uniqueKey" // an extra (optional) key used to uniquely identify a StudentLocation; you should populate this value using your Udacity account id
         static let FirstName = "Rodrigo"
         static let LastName = "López-Romero"
-        static let MediaURL = "https://es.linkedin.com/in/rodrigolopezromeroguijarro"
-        static let Latitude = 37.386052 // TODO: the latitude of the student location (ranges from -90 to 90)
-        static let Longitude = -122.083851 // TODO: the longitude of the student location (ranges from -180 to 180)
-        static let MapString = "mapString" // TODO: the location string used for geocoding the student location.     * Example Value: Mountain View, CA
-
     }
     
     struct JSONResponseKeys {

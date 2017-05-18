@@ -39,6 +39,10 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
         // Setting delegates
         urlTextField.delegate = self
         locationTextField.delegate = self
+        
+        // Initializing the studentLocation property with the already known information:
+        studentLocation.firstName = ParseClient.JSONBodyValues.FirstName
+        studentLocation.lastName = ParseClient.JSONBodyValues.LastName
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -158,6 +162,8 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
                 }
                 
                 if (!results!.isEmpty){
+                    self.studentLocation.mapString = self.locationTextField.text!
+                    
                     let placemark = results![0]
                     self.studentLocation.latitude = (placemark.location?.coordinate.latitude)!
                     self.studentLocation.longitude = (placemark.location?.coordinate.longitude)!
@@ -175,13 +181,14 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
     
     func submitStudentLocation () {
         if !locationTextField.text!.isEmpty {
-            // TODO: Submit functionality (change UI, etc.).
             parseClient.postStudentLocation(self.studentLocation) { (success, error) in
-                
                 self.activityIndicator.stopAnimating()
-
-                print("postStudentLocation completionHandler")
-
+                if success {
+                    // TODO: Refresh the map and listView whenever it finishes to include the location. Check how the observers behave.
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    ErrorAlertController.displayErrorAlertViewWithMessage(error!, caller: self)
+                }
             }
         } else {
             ErrorAlertController.displayErrorAlertViewWithMessage("You must enter a correct website to continue. Example: https://www.google.es", caller: self)
