@@ -36,7 +36,7 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Setting delagates
+        // Setting delegates
         urlTextField.delegate = self
         locationTextField.delegate = self
     }
@@ -115,7 +115,6 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
             self.mapView.isScrollEnabled = false
             self.mapView.isZoomEnabled = false
         }
-        
     }
     
     // MARK: - UITextField delegate methods
@@ -154,7 +153,7 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
                 self.activityIndicator.stopAnimating()
                 
                 guard error == nil else {
-                    // TODO: Manage error.
+                    ErrorAlertController.displayErrorAlertViewWithMessage("There was an error looking for the location", caller: self)
                     return
                 }
                 
@@ -166,12 +165,11 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
                     self.addAnnotationAndSetMap()
                     self.prepareUIForSubmission()
                 } else {
-                    // TODO: Manage error.
+                    ErrorAlertController.displayErrorAlertViewWithMessage("The location was not found. Try again.", caller: self)
                 }
             })
         } else {
-            // TODO: Display Alert or manage the error:
-            // "The String of the location is empty and the location cannot be found".
+            ErrorAlertController.displayErrorAlertViewWithMessage("The location text is empty and cannot be found. Please, insert a location and try again.", caller: self)
         }
     }
     
@@ -186,8 +184,7 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
 
             }
         } else {
-            // TODO: Display Alert or manage the error:
-            // "You must enter a website".
+            ErrorAlertController.displayErrorAlertViewWithMessage("You must enter a correct website to continue. Example: https://www.google.es", caller: self)
         }
     }
 }

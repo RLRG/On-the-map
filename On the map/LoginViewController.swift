@@ -53,14 +53,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     }
                         // If the login does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or an incorrect email and password.
                     else {
-                        self.displayErrorAlertViewWithMessage(errorString!)
+                        ErrorAlertController.displayErrorAlertViewWithMessage(errorString!, caller: self)
                     }
                 }
             }
         }
         else{
             self.activityIndicator.stopAnimating()
-            self.displayErrorAlertViewWithMessage("Please, complete the email and password boxes to login")
+            ErrorAlertController.displayErrorAlertViewWithMessage("Please, complete the email and password boxes to login", caller: self)
         }
         
     }
@@ -70,7 +70,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if UIApplication.shared.canOpenURL(URL(string: "https://www.udacity.com/account/auth#!/signup")!) {
             UIApplication.shared.open(URL(string: "https://www.udacity.com/account/auth#!/signup")!, options: [:], completionHandler: nil)
         } else {
-            displayErrorAlertViewWithMessage("There was an error when opening the URL.")
+            ErrorAlertController.displayErrorAlertViewWithMessage("There was an error when opening the URL.", caller: self)
         }
     }
     
@@ -79,19 +79,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func completeLogin() {
         let controller = storyboard!.instantiateViewController(withIdentifier: "OnTheMapTabController") as! UITabBarController
         present(controller, animated: true, completion: nil)
-    }
-    
-    // To present an error alert view
-    func displayErrorAlertViewWithMessage (_ errorString: String) {
-        
-        let alertController = UIAlertController()
-        alertController.title = "LOGIN ERROR"
-        alertController.message = errorString
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default) { action in
-            self.dismiss(animated: true, completion: nil)
-        }
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion:nil)
     }
     
     

@@ -36,7 +36,6 @@ class ListViewController : UIViewController, UITableViewDelegate {
         
         // Refreshing the student locations
         sharedStudentsData.refreshStudentLocations()
-        
     }
     
     
@@ -53,7 +52,7 @@ class ListViewController : UIViewController, UITableViewDelegate {
                 }
                     //If the logout does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or another error.
                 else {
-                    self.displayErrorAlertViewWithMessage(errorString!)
+                    ErrorAlertController.displayErrorAlertViewWithMessage(errorString!, caller: self)
                 }
             }
         }
@@ -87,10 +86,10 @@ class ListViewController : UIViewController, UITableViewDelegate {
         activityIndicator.stopAnimating()
         let userInfo = notification.userInfo
         if let error = userInfo?["error"] {
-            displayErrorAlertViewWithMessage(error as! String)
+            ErrorAlertController.displayErrorAlertViewWithMessage(error as! String, caller: self)
         }
         else{
-            displayErrorAlertViewWithMessage("There was an error when updating the student locations")
+            ErrorAlertController.displayErrorAlertViewWithMessage("There was an error when updating the student locations", caller: self)
         }
     }
     
@@ -106,23 +105,8 @@ class ListViewController : UIViewController, UITableViewDelegate {
             if UIApplication.shared.canOpenURL(mediaURL) {
                 UIApplication.shared.open(mediaURL, options: [:], completionHandler: nil)
             } else {
-                displayErrorAlertViewWithMessage("There was an error when opening the URL.")
+                ErrorAlertController.displayErrorAlertViewWithMessage("There was an error when opening the URL.", caller: self)
             }
         }
-    }
-    
-    
-    // MARK: Auxiliary functions
-    
-    func displayErrorAlertViewWithMessage (_ errorString: String) {
-        
-        let alertController = UIAlertController()
-        alertController.title = "ERROR"
-        alertController.message = errorString
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default) { action in
-            self.dismiss(animated: true, completion: nil)
-        }
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion:nil)
     }
 }

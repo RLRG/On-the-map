@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB1484411ECDEF9900B1FB40 /* ErrorAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1484401ECDEF9900B1FB40 /* ErrorAlertController.swift */; };
 		CB81AA2C1E3891E400C45BC5 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81AA2B1E3891E400C45BC5 /* ListViewController.swift */; };
 		CB81AA2E1E3893FB00C45BC5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81AA2D1E3893FB00C45BC5 /* MapViewController.swift */; };
 		CB81AA301E38961500C45BC5 /* PostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81AA2F1E38961500C45BC5 /* PostingViewController.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CB1484401ECDEF9900B1FB40 /* ErrorAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorAlertController.swift; sourceTree = "<group>"; };
 		CB81AA2B1E3891E400C45BC5 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		CB81AA2D1E3893FB00C45BC5 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		CB81AA2F1E38961500C45BC5 /* PostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostingViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		CB81AA311E38A1C700C45BC5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				CB1484401ECDEF9900B1FB40 /* ErrorAlertController.swift */,
 				CB81AA321E38A1E300C45BC5 /* Utils.swift */,
 			);
 			name = Utils;
@@ -379,6 +382,7 @@
 				CB9C8D7F1E37C6BA00C25B89 /* ParseClient.swift in Sources */,
 				CB9C8D7D1E37C69200C25B89 /* ParseConstants.swift in Sources */,
 				CB81AA2E1E3893FB00C45BC5 /* MapViewController.swift in Sources */,
+				CB1484411ECDEF9900B1FB40 /* ErrorAlertController.swift in Sources */,
 				CB81AA301E38961500C45BC5 /* PostingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
