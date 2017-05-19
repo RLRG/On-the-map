@@ -41,6 +41,7 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
         locationTextField.delegate = self
         
         // Initializing the studentLocation property with the already known information:
+        studentLocation.uniqueKey = "12345678"
         studentLocation.firstName = ParseClient.JSONBodyValues.FirstName
         studentLocation.lastName = ParseClient.JSONBodyValues.LastName
     }

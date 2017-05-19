@@ -82,7 +82,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    // Optional (but fun) task: The “Sign in with Facebook” button in the image authenticates with Facebook. Authentication with Facebook may occur through the device’s accounts or through Facebook’s website.
+    // TODO: Optional (but fun) task: The “Sign in with Facebook” button in the image authenticates with Facebook. Authentication with Facebook may occur through the device’s accounts or through Facebook’s website.
 
     
     // MARK: - UITextField delegate methods
