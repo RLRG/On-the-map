@@ -64,8 +64,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
         else{
-            self.activityIndicator.stopAnimating()
-            ErrorAlertController.displayErrorAlertViewWithMessage("Please, complete the email and password boxes to login", caller: self)
+            performUIUpdatesOnMain {
+                self.activityIndicator.stopAnimating()
+                ErrorAlertController.displayErrorAlertViewWithMessage("Please, complete the email and password boxes to login", caller: self)
+            }
+            
         }
         
     }
@@ -85,10 +88,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let controller = storyboard!.instantiateViewController(withIdentifier: "OnTheMapTabController") as! UITabBarController
         present(controller, animated: true, completion: nil)
     }
-    
-    
-    // TODO: Optional (but fun) task: The “Sign in with Facebook” button in the image authenticates with Facebook. Authentication with Facebook may occur through the device’s accounts or through Facebook’s website.
-
     
     // MARK: - UITextField delegate methods
     
@@ -117,4 +116,3 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
 }
-

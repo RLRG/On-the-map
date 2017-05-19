@@ -48,8 +48,6 @@ class MapViewController : UIViewController, MKMapViewDelegate {
     
     // MARK: Actions
     
-    // TODO: Eliminar redundancia en el código de los dos viewControllers (map & list).
-    
     @IBAction func doLogout(_ sender: Any) {
         
         activityIndicator.startAnimating()

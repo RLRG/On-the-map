@@ -111,18 +111,7 @@ class ParseClient : NSObject {
                 
                 studentLocations = [StudentLocation]()
                 for studentLocation in results {
-                    
-                    var studentLocToAdd:StudentLocation = StudentLocation()
-                    
-                    studentLocToAdd.objectId = studentLocation[ParseClient.JSONResponseKeys.ObjectID] as? String ?? ""
-                    studentLocToAdd.uniqueKey = studentLocation[ParseClient.JSONResponseKeys.UniqueKey] as? String ?? ""
-                    studentLocToAdd.firstName = studentLocation[ParseClient.JSONResponseKeys.FirstName] as? String ?? ""
-                    studentLocToAdd.lastName = studentLocation[ParseClient.JSONResponseKeys.LastName] as? String ?? ""
-                    studentLocToAdd.mapString = studentLocation[ParseClient.JSONResponseKeys.MapString] as? String ?? ""
-                    studentLocToAdd.mediaURL = studentLocation[ParseClient.JSONResponseKeys.MediaURL] as? String ?? ""
-                    studentLocToAdd.latitude = studentLocation[ParseClient.JSONResponseKeys.Latitude] as? Double ?? 0.0
-                    studentLocToAdd.longitude = studentLocation[ParseClient.JSONResponseKeys.Longitude] as? Double ?? 0.0
-                    
+                    let studentLocToAdd:StudentLocation = StudentLocation(studentLocation as NSDictionary)
                     studentLocations?.append(studentLocToAdd)
                 }
                 
@@ -209,7 +198,7 @@ class ParseClient : NSObject {
     
     // MARK: PUT - Update Student Location
     
-    // TODO: Use this Web Service wherever it is needed: when the user already posted a location and they want to post again ?
+    // NOTE:: This web service is not used because the app can meet the specifications provided in the Rubric of the projects without using it. If I have to use it someway, please, let me know it in the corresponding review.
     func updateStudentLocationWithObjectID (_ objectID: String, _ studentLocation: StudentLocation, _ completionHandlerUpdateStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         var success = false

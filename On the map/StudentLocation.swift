@@ -23,7 +23,6 @@ struct StudentLocation {
     var ACL:String
     
     init () {
-        
         objectId = ""
         uniqueKey = ""
         firstName = ""
@@ -32,6 +31,20 @@ struct StudentLocation {
         mediaURL = ""
         latitude = 0.0
         longitude = 0.0
+        createdAt = Date()
+        updatedAt = Date()
+        ACL = ""
+    }
+    
+    init (_ studentLocation: NSDictionary) {
+        objectId = studentLocation[ParseClient.JSONResponseKeys.ObjectID] as? String ?? ""
+        uniqueKey = studentLocation[ParseClient.JSONResponseKeys.UniqueKey] as? String ?? ""
+        firstName = studentLocation[ParseClient.JSONResponseKeys.FirstName] as? String ?? ""
+        lastName = studentLocation[ParseClient.JSONResponseKeys.LastName] as? String ?? ""
+        mapString = studentLocation[ParseClient.JSONResponseKeys.MapString] as? String ?? ""
+        mediaURL = studentLocation[ParseClient.JSONResponseKeys.MediaURL] as? String ?? ""
+        latitude = studentLocation[ParseClient.JSONResponseKeys.Latitude] as? Double ?? 0.0
+        longitude = studentLocation[ParseClient.JSONResponseKeys.Longitude] as? Double ?? 0.0
         createdAt = Date()
         updatedAt = Date()
         ACL = ""

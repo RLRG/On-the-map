@@ -82,20 +82,14 @@
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
                                 <color key="color" red="0.42040123600000001" green="0.78526291920000002" blue="0.89835482799999999" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QRx-wB-ywx">
-                                <rect key="frame" x="112.5" y="488" width="150" height="30"/>
-                                <state key="normal" title="Sign in with Facebook"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.71476724229999999" blue="0.25476330019999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Qxt-RD-TTY" firstAttribute="top" secondItem="ZcB-Jc-7J9" secondAttribute="bottom" constant="111" id="0Yh-Ry-7yN"/>
                             <constraint firstItem="Qxt-RD-TTY" firstAttribute="top" secondItem="hYr-8o-EBa" secondAttribute="bottom" constant="44" id="4na-cD-3De"/>
                             <constraint firstItem="rzw-Bi-nV1" firstAttribute="top" secondItem="Qxt-RD-TTY" secondAttribute="bottom" constant="16" id="AOa-Af-v4u"/>
-                            <constraint firstItem="QRx-wB-ywx" firstAttribute="top" secondItem="oFh-AR-4wj" secondAttribute="bottom" constant="19" id="BJ8-8U-Gga"/>
                             <constraint firstItem="oFh-AR-4wj" firstAttribute="top" secondItem="AMk-9v-flk" secondAttribute="bottom" constant="19" id="Jbc-yx-0XP"/>
                             <constraint firstItem="meK-o6-sJZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MWV-FP-RgS"/>
-                            <constraint firstItem="QRx-wB-ywx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MvS-dU-Y38"/>
                             <constraint firstItem="Qxt-RD-TTY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RK2-8L-JPb"/>
                             <constraint firstItem="ZcB-Jc-7J9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TyM-t4-AbF"/>
                             <constraint firstItem="ZcB-Jc-7J9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="ajm-3X-MRp"/>
