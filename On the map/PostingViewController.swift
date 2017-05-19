@@ -186,7 +186,7 @@ class PostingViewController : UIViewController, UITextFieldDelegate {
             parseClient.postStudentLocation(self.studentLocation) { (success, error) in
                 self.activityIndicator.stopAnimating()
                 if success {
-                    // TODO: Refresh the map and listView whenever it finishes to include the location. Check how the observers behave.
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "studentPostedLocationSuccess"), object: nil)
                     self.dismiss(animated: true, completion: nil)
                 } else {
                     ErrorAlertController.displayErrorAlertViewWithMessage(error!, caller: self)

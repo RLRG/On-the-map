@@ -29,20 +29,26 @@ class MapViewController : UIViewController, MKMapViewDelegate {
         // Setting the delegate of the map:
         mapView.delegate = self
         
-        // Adding the observer for the event of refreshing the data
-        NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateSuccess), name: NSNotification.Name(rawValue: "refreshStudentLocationsSuccessful"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateFailed), name: NSNotification.Name(rawValue: "refreshStudentLocationsFailed"), object: nil)
-        
         // Refreshing the student locations
+        mapView.alpha = 0.25
         sharedStudentsData.refreshStudentLocations()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Adding the observers for the event of refreshing the data and posting a new location.
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "refreshStudentLocationsSuccessful"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "refreshStudentLocationsFailed"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "studentPostedLocationSuccess"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateSuccess), name: NSNotification.Name(rawValue: "refreshStudentLocationsSuccessful"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateFailed), name: NSNotification.Name(rawValue: "refreshStudentLocationsFailed"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(studentPostedLocationSuccess), name: NSNotification.Name(rawValue: "studentPostedLocationSuccess"), object: nil)
+    }
     
     // MARK: Actions
     
     // TODO: Eliminar redundancia en el código de los dos viewControllers (map & list).
-    // TODO: Revise the observers of the refresh to check how they behave when we are in any of the screens.
-    // TODO: Atenuar el mapa cuando se esté refrescando la información y mostrar/esconder activityIndicator.
     
     @IBAction func doLogout(_ sender: Any) {
         
@@ -76,29 +82,47 @@ class MapViewController : UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func refreshMap(_ sender: Any) {
-        sharedStudentsData.refreshStudentLocations()
+        performUIUpdatesOnMain {
+            self.activityIndicator.startAnimating()
+            self.mapView.alpha = 0.25
+            self.sharedStudentsData.refreshStudentLocations()
+        }
     }
     
     
     // MARK: Responses for the refresh map event
     
     func studentLocationsDidUpdateSuccess(_ notification:NSNotification) {
-        // Stopping ActivityIndicator
-        activityIndicator.stopAnimating()
-        
         // Update Map Content - Displaying pins on the map.
         displayPinsOnTheMap()
+        
+        // Stopping ActivityIndicator
+        performUIUpdatesOnMain {
+            self.activityIndicator.stopAnimating()
+            self.mapView.alpha = 1
+        }
     }
     
     func studentLocationsDidUpdateFailed(_ notification:NSNotification) {
-        // Stopping ActivityIndicator
-        activityIndicator.stopAnimating()
-        let userInfo = notification.userInfo
-        if let error = userInfo?["error"] {
-            ErrorAlertController.displayErrorAlertViewWithMessage(error as! String, caller: self)
+        performUIUpdatesOnMain {
+            // Stopping ActivityIndicator
+            self.activityIndicator.stopAnimating()
+            self.mapView.alpha = 1
+            let userInfo = notification.userInfo
+            if let error = userInfo?["error"] {
+                ErrorAlertController.displayErrorAlertViewWithMessage(error as! String, caller: self)
+            }
+            else{
+                ErrorAlertController.displayErrorAlertViewWithMessage("There was an error when updating the student locations", caller: self)
+            }
         }
-        else{
-            ErrorAlertController.displayErrorAlertViewWithMessage("There was an error when updating the student locations", caller: self)
+    }
+    
+    func studentPostedLocationSuccess(_ notification:NSNotification) {
+        performUIUpdatesOnMain {
+            self.activityIndicator.startAnimating()
+            self.mapView.alpha = 0.25
+            self.sharedStudentsData.refreshStudentLocations()
         }
     }
     

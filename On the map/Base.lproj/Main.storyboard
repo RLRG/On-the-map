@@ -307,7 +307,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ksS-Jf-tva">
                                 <rect key="frame" x="0.0" y="64" width="375" height="168"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Where are you studying today?" textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fh-vR-oru">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Where are you studying today?" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fh-vR-oru">
                                         <rect key="frame" x="67" y="20" width="240" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="MMR-67-8l2"/>

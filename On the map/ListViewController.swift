@@ -28,14 +28,22 @@ class ListViewController : UIViewController, UITableViewDelegate {
         tableViewList.delegate = self
         tableViewList.dataSource = sharedStudentsData
         
-        // Adding the observer for the event of refreshing the data
-        NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateSuccess), name: NSNotification.Name(rawValue: "refreshStudentLocationsSuccessful"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateFailed), name: NSNotification.Name(rawValue: "refreshStudentLocationsFailed"), object: nil)
-        
         // Refreshing the student locations
+        tableViewList.alpha = 0.25
         sharedStudentsData.refreshStudentLocations()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Adding the observers for the event of refreshing the data and posting a new location.
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "refreshStudentLocationsSuccessful"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "refreshStudentLocationsFailed"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "studentPostedLocationSuccess"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateSuccess), name: NSNotification.Name(rawValue: "refreshStudentLocationsSuccessful"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(studentLocationsDidUpdateFailed), name: NSNotification.Name(rawValue: "refreshStudentLocationsFailed"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(studentPostedLocationSuccess), name: NSNotification.Name(rawValue: "studentPostedLocationSuccess"), object: nil)
+    }
     
     // MARK: Actions
     
@@ -67,30 +75,50 @@ class ListViewController : UIViewController, UITableViewDelegate {
     }
     
     @IBAction func refreshMap(_ sender: Any) {
-        sharedStudentsData.refreshStudentLocations()
+        performUIUpdatesOnMain {
+            self.activityIndicator.startAnimating()
+            self.tableViewList.alpha = 0.25
+            self.sharedStudentsData.refreshStudentLocations()
+        }
     }
     
     
     // MARK: Responses for the refresh map event
     
     func studentLocationsDidUpdateSuccess(_ notification:NSNotification) {
-        // Stopping ActivityIndicator
-        activityIndicator.stopAnimating()
-        tableViewList.reloadData()
+        performUIUpdatesOnMain {
+            // Update tableView content.
+            self.tableViewList.reloadData()
+            
+            // Stopping ActivityIndicator
+            self.tableViewList.alpha = 1
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     func studentLocationsDidUpdateFailed(_ notification:NSNotification) {
-        // Stopping ActivityIndicator
-        activityIndicator.stopAnimating()
-        let userInfo = notification.userInfo
-        if let error = userInfo?["error"] {
-            ErrorAlertController.displayErrorAlertViewWithMessage(error as! String, caller: self)
-        }
-        else{
-            ErrorAlertController.displayErrorAlertViewWithMessage("There was an error when updating the student locations", caller: self)
+        performUIUpdatesOnMain {
+            // Stopping ActivityIndicator
+            self.tableViewList.alpha = 1
+            self.activityIndicator.stopAnimating()
+            let userInfo = notification.userInfo
+            if let error = userInfo?["error"] {
+                ErrorAlertController.displayErrorAlertViewWithMessage(error as! String, caller: self)
+            }
+            else{
+                ErrorAlertController.displayErrorAlertViewWithMessage("There was an error when updating the student locations", caller: self)
+            }
         }
     }
     
+    func studentPostedLocationSuccess(_ notification:NSNotification) {
+        performUIUpdatesOnMain {
+            self.activityIndicator.startAnimating()
+            self.tableViewList.alpha = 0.25
+            self.sharedStudentsData.refreshStudentLocations()
+        }
+    }
+
     
     // MARK: UITableViewDelegate
     
