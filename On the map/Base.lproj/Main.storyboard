@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -63,8 +62,8 @@
                                     <action selector="doLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rhw-9m-fgI"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to Udacity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYr-8o-EBa">
-                                <rect key="frame" x="76" y="214" width="223" height="35"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to Udacity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYr-8o-EBa">
+                                <rect key="frame" x="87" y="214" width="201.5" height="35"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                 <color key="textColor" red="0.93370145559310913" green="0.98043662309646606" blue="0.95045596361160278" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -84,38 +83,29 @@
                                 <color key="color" red="0.42040123600000001" green="0.78526291920000002" blue="0.89835482799999999" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QRx-wB-ywx">
-                                <rect key="frame" x="111" y="488" width="153" height="30"/>
+                                <rect key="frame" x="112.5" y="488" width="150" height="30"/>
                                 <state key="normal" title="Sign in with Facebook"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.71476724229999999" blue="0.25476330019999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="ZcB-Jc-7J9" secondAttribute="trailing" constant="97" id="0Oy-YL-ZaG"/>
                             <constraint firstItem="Qxt-RD-TTY" firstAttribute="top" secondItem="ZcB-Jc-7J9" secondAttribute="bottom" constant="111" id="0Yh-Ry-7yN"/>
                             <constraint firstItem="Qxt-RD-TTY" firstAttribute="top" secondItem="hYr-8o-EBa" secondAttribute="bottom" constant="44" id="4na-cD-3De"/>
                             <constraint firstItem="rzw-Bi-nV1" firstAttribute="top" secondItem="Qxt-RD-TTY" secondAttribute="bottom" constant="16" id="AOa-Af-v4u"/>
                             <constraint firstItem="QRx-wB-ywx" firstAttribute="top" secondItem="oFh-AR-4wj" secondAttribute="bottom" constant="19" id="BJ8-8U-Gga"/>
-                            <constraint firstItem="Qxt-RD-TTY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="48" id="FAR-6i-MPf"/>
                             <constraint firstItem="oFh-AR-4wj" firstAttribute="top" secondItem="AMk-9v-flk" secondAttribute="bottom" constant="19" id="Jbc-yx-0XP"/>
-                            <constraint firstItem="hYr-8o-EBa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="60" id="LPY-Zb-79c"/>
                             <constraint firstItem="meK-o6-sJZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MWV-FP-RgS"/>
                             <constraint firstItem="QRx-wB-ywx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MvS-dU-Y38"/>
-                            <constraint firstItem="ZcB-Jc-7J9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="97" id="PWV-3j-3Iy"/>
                             <constraint firstItem="Qxt-RD-TTY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RK2-8L-JPb"/>
                             <constraint firstItem="ZcB-Jc-7J9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TyM-t4-AbF"/>
                             <constraint firstItem="ZcB-Jc-7J9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="ajm-3X-MRp"/>
-                            <constraint firstItem="QRx-wB-ywx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="95" id="bMM-NR-4h9"/>
-                            <constraint firstItem="rzw-Bi-nV1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="48" id="bma-Zw-Bg3"/>
                             <constraint firstItem="rzw-Bi-nV1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="egF-HN-yFP"/>
                             <constraint firstItem="AMk-9v-flk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hkl-x5-Eg6"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hYr-8o-EBa" secondAttribute="trailing" constant="60" id="iPY-nw-dnf"/>
                             <constraint firstItem="oFh-AR-4wj" firstAttribute="centerX" secondItem="AMk-9v-flk" secondAttribute="centerX" id="lR1-KZ-1HZ"/>
                             <constraint firstItem="meK-o6-sJZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="mQE-tJ-70N"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Qxt-RD-TTY" secondAttribute="trailing" constant="49" id="mkJ-RU-atm"/>
                             <constraint firstItem="hYr-8o-EBa" firstAttribute="top" secondItem="ZcB-Jc-7J9" secondAttribute="bottom" constant="32" id="mtw-gE-XCO"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="QRx-wB-ywx" secondAttribute="trailing" constant="95" id="odc-y0-NKY"/>
+                            <constraint firstItem="hYr-8o-EBa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ow9-M9-AcC"/>
                             <constraint firstItem="AMk-9v-flk" firstAttribute="top" secondItem="rzw-Bi-nV1" secondAttribute="bottom" constant="8" symbolic="YES" id="ueK-7W-jWk"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rzw-Bi-nV1" secondAttribute="trailing" constant="49" id="y8r-FK-75x"/>
                         </constraints>
                     </view>
                     <connections>
@@ -123,6 +113,7 @@
                         <outlet property="emailTextView" destination="Qxt-RD-TTY" id="IF2-RH-qRe"/>
                         <outlet property="loginButton" destination="AMk-9v-flk" id="NbJ-dN-fsi"/>
                         <outlet property="passwordTextView" destination="rzw-Bi-nV1" id="K7n-Y9-FGH"/>
+                        <outlet property="signUpButton" destination="oFh-AR-4wj" id="jvZ-RL-sWC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

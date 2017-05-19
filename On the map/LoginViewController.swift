@@ -16,7 +16,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextView: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    // TODO: Fix the LoginViewController UI.
+    @IBOutlet weak var signUpButton: UIButton!
     
     // MARK: - Lifecycle methods
     
@@ -30,6 +30,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Keyboard notifications: adding observers
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        // Adapting the button to every screen size.
+        signUpButton.titleLabel?.numberOfLines = 1;
+        signUpButton.titleLabel?.adjustsFontSizeToFitWidth = true;
+        signUpButton.titleLabel?.lineBreakMode = NSLineBreakMode.byClipping;
     }
 
     // MARK: - Actions
