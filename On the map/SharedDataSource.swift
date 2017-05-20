@@ -26,6 +26,7 @@ class SharedDataSource: NSObject, UITableViewDataSource {
     
     let parseClient = ParseClient.sharedInstance()
     var studentLocations = [StudentLocation]()
+    var currentStudent = StudentLocation()
     
     
     // MARK: Initializers

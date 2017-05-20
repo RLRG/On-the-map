@@ -47,17 +47,31 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         if (emailTextView.text != "" && passwordTextView.text != "")
         {
-            UdacityClient.sharedInstance().authenticateUser(emailTextView.text!, password: passwordTextView.text!) { (success, errorString) in
+            UdacityClient.sharedInstance().authenticateUser(emailTextView.text!, password: passwordTextView.text!) { (success, userKey, errorString) in
                 
-                performUIUpdatesOnMain {
-                    self.activityIndicator.stopAnimating()
-                    
-                    // If the connection is made and the email and password are good, the app will segue to the Map and Table Tabbed View.
-                    if success {
-                        self.completeLogin()
+                if success {
+                    ParseClient.sharedInstance().getStudentLocations(optionalUserKey: userKey) { (successStudent, student, errorStringStudent) in
+                        
+                        if successStudent {
+                            SharedDataSource.sharedInstance().currentStudent = student![0]
+                            performUIUpdatesOnMain {
+                                self.activityIndicator.stopAnimating()
+                                self.completeLogin()
+                            }
+                        }
+                        else {
+                            performUIUpdatesOnMain {
+                                self.activityIndicator.stopAnimating()
+                                ErrorAlertController.displayErrorAlertViewWithMessage(errorString!, caller: self)
+                            }
+                        }
                     }
-                        // If the login does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or an incorrect email and password.
-                    else {
+                }
+                    
+                // If the login does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or an incorrect email and password.
+                else {
+                    performUIUpdatesOnMain {
+                        self.activityIndicator.stopAnimating()
                         ErrorAlertController.displayErrorAlertViewWithMessage(errorString!, caller: self)
                     }
                 }

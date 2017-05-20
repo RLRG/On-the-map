@@ -30,7 +30,7 @@ class UdacityClient : NSObject {
     
     // MARK: Authentication method
     
-    func authenticateUser (_ user: String, password: String, completionHandlerForAuth: @escaping(_ success: Bool, _ errorString: String?) -> Void) {
+    func authenticateUser (_ user: String, password: String, completionHandlerForAuth: @escaping(_ success: Bool, _ userKey: String?, _ errorString: String?) -> Void) {
         
         var success = false
         var errorString = ""
@@ -46,19 +46,19 @@ class UdacityClient : NSObject {
             
             guard error == nil else {
                 errorString = "Login failed ! Please, check your network connection and try again."
-                completionHandlerForAuth(success, errorString)
+                completionHandlerForAuth(success, nil, errorString)
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 errorString = "Login failed ! Please, check that your are entering the correct credentials and try again."
-                completionHandlerForAuth(success, errorString)
+                completionHandlerForAuth(success, nil, errorString)
                 return
             }
             
             guard let data = data else {
                 errorString = "Login failed ! Please, check that your are entering the correct credentials and try again."
-                completionHandlerForAuth(success, errorString)
+                completionHandlerForAuth(success, nil, errorString)
                 return
             }
             
@@ -73,14 +73,14 @@ class UdacityClient : NSObject {
                 parsedResult = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as! [String:AnyObject] as AnyObject!
             } catch {
                 errorString = "Login failed ! Please, check that your are entering the correct credentials and try again."
-                completionHandlerForAuth(success, errorString)
+                completionHandlerForAuth(success, nil, errorString)
                 return
             }
             
             // ERROR
             if let _ = parsedResult[JSONResponseKeys.status] as? Int,
                 let error = parsedResult[JSONResponseKeys.error] as? String {
-                completionHandlerForAuth(success, error)
+                completionHandlerForAuth(success, nil, errorString)
                 return
             }
             
@@ -89,13 +89,13 @@ class UdacityClient : NSObject {
                 let key = account[JSONResponseKeys.userKey] as? String {
                 print("User logged in with key = \(key)")
                 success = true
-                completionHandlerForAuth(success, errorString)
+                completionHandlerForAuth(success, key, errorString)
                 return
             }
             
             // Catch all errors in case there is no success
             errorString = "Login failed ! Please, check that your are entering the correct credentials and your network connection and try again."
-            completionHandlerForAuth(success, errorString)
+            completionHandlerForAuth(success, nil, errorString)
             
         }
         task.resume()
