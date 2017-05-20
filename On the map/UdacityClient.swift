@@ -45,19 +45,19 @@ class UdacityClient : NSObject {
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             guard error == nil else {
-                errorString = (error?.localizedDescription)!
+                errorString = "Login failed ! Please, check your network connection and try again."
                 completionHandlerForAuth(success, errorString)
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                errorString = "Your request returned a status code other than 2xx!"
+                errorString = "Login failed ! Please, check that your are entering the correct credentials and try again."
                 completionHandlerForAuth(success, errorString)
                 return
             }
             
             guard let data = data else {
-                errorString = "No data was returned by the request!"
+                errorString = "Login failed ! Please, check that your are entering the correct credentials and try again."
                 completionHandlerForAuth(success, errorString)
                 return
             }
@@ -72,7 +72,7 @@ class UdacityClient : NSObject {
             do {
                 parsedResult = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as! [String:AnyObject] as AnyObject!
             } catch {
-                errorString = "Could not parse the data as JSON"
+                errorString = "Login failed ! Please, check that your are entering the correct credentials and try again."
                 completionHandlerForAuth(success, errorString)
                 return
             }
@@ -94,7 +94,7 @@ class UdacityClient : NSObject {
             }
             
             // Catch all errors in case there is no success
-            errorString = "Unable to login"
+            errorString = "Login failed ! Please, check that your are entering the correct credentials and your network connection and try again."
             completionHandlerForAuth(success, errorString)
             
         }

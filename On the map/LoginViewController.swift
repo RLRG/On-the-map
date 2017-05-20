@@ -49,9 +49,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         {
             UdacityClient.sharedInstance().authenticateUser(emailTextView.text!, password: passwordTextView.text!) { (success, errorString) in
                 
-                self.activityIndicator.stopAnimating()
-                
                 performUIUpdatesOnMain {
+                    self.activityIndicator.stopAnimating()
+                    
                     // If the connection is made and the email and password are good, the app will segue to the Map and Table Tabbed View.
                     if success {
                         self.completeLogin()
