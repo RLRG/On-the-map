@@ -70,8 +70,7 @@ class MapViewController : UIViewController, MKMapViewDelegate {
     }
     
     func completeLogout() {
-        let controller = storyboard!.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        present(controller, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func postLocation(_ sender: Any) {
